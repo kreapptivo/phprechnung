@@ -1,0 +1,173 @@
+/*
+	UPDATE - 31.01.2011
+
+	phpRechnung - is easy-to-use Web-based multilingual accounting software.
+	Copyright (C) 2001 - 2011 Edy Corak < edy at loenshotel dot de >
+
+	This program is free software; you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation; either version 2 of the License, or
+	(at your option) any later version.
+
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+*/
+
+
+Aktuallisieren von phpRechnung 1.6 Test3.01 auf phpRechnung 1.6.4
+
+!!! WICHTIG !!!
+
+Vor einer Aktualisierung bitte alle Daten sichern.
+
+mysqldump -u 'benutzername' -p --add-drop-table 'datenbankname' > phprechnung.sql
+
+==================
+Tabellen erstellen
+==================
+
+Die Tabellen muessen in die gleiche Datenbank wie die von
+phpRechnung 1.6 Test3.01 importiert werden.
+
+mysql -u 'benutzername' -p 'datenbankname' < phprechnung_1_6_4_update.sql
+
+!!! HINWEIS !!!
+
+Wenn Sie phpMyAdmin benutzen dann waehlen Sie zuerst bitte die
+Datenbank aus, dann Importieren, Datei durchsuchen, passende
+SQL Datei auswaehlen: phprechnung_1_6_4_update.sql,
+Zeichencodierung der Datei 'latin1' waehlen und auf OK klicken.
+
+Sie sollten dann z. B. folgende Meldung sehen:
+
+Der Import wurde erfolgreich abgeschlossen, 127 Abfragen wurden ausgefuehrt.
+
+!!! WICHTIG !!!
+
+Bitte fuegen Sie NICHT die SQL-Datei in das Feld SQL-Befehl(e) in Datenbank ein.
+Die Daten werden ohne Fehler eingefuegt aber eine Anmeldung ist danach NICHT mehr moeglich.
+
+========================
+phpRechnung installieren
+========================
+
+phpRechnung_1_6_4.tar.gz entpacken - tar -zxvf phpRechnung_1_6_4.tar.gz
+Das Verzeichnis 'phpRechnung_1_6_4' auf den Webserver kopieren z. B. /var/www
+Sie koennen das Verzeichnis auch umbenennen.
+
+Am besten ein anderes Verzeichnis waehlen als das der Vorgaenger-Version.
+
+Die Anpassungen wie in der 'README' beschrieben durchfuehren.
+
+Wenn Sie den Wert von '$pschluessel' ( 1.6 Test3.01 in 'phprechnung.inc.php'
+veraendert haben. Dann bitte diesen Wert auch in '$pkeyOld' ( 1.6.4 ) eintragen.
+
+Jetzt kann die Erste Anmeldung erfolgen
+
+Benutzername ist 'admin' das Passwort ist auch 'admin'
+
+Nach der Ersten Anmeldung werden Sie aufgefordert die
+phpRechnung Lizenz ( GPL v2 ) zu akzeptieren.
+
+Dieses Vorgehen ist fuer jeden Benutzer einmalig notwendig.
+
+Mit einem Klick auf 'Akzeptieren' gelangen Sie zu der Startseite.
+
+Tabellen die NICHT aktualisiert werden sind:
+
+'category' - Kategorie
+'methodofpay' - Zahlungsweise
+'posgroup' - Position - Gruppe
+'tax' - Mehrwertsteuer
+
+Wenn Sie die vordefinierte Text aendern moechten, dann koennen Sie dies jetzt
+machen, da die Texte auch in Rechnungen/Angeboten ... gespeichert werden.
+
+======
+UPDATE
+======
+
+Jetzt bitte auf 'Update' klicken ( auf der Startseite unten links )
+Sie gelangen jetzt zu der Updateseite. Danach bitte auf 'Update Login' klicken.
+
+Wenn Sie den Wert von '$pschluessel' ( 1.6 Test3.01 ) in 'phprechnung.inc.php'
+veraendert hatten und in '$pkeyOld' ( 1.6.4 ) eingetragen haben, dann bitte
+den Wert auch unter '$pkey' ( 1.6.4 ) eintragen.
+
+Wenn Sie den Wert von '$pschluessel' ( 1.6 Test3.01 ) nicht veraendert haben,
+dann sind keine Aenderungen in 'phprechnung.inc.php' mehr noetig. Ab diesem
+Zeitpunkt wird '$pkeyOld' ( 1.6.4 ) nicht mehr benoetigt.
+
+In Deutschland wurde der Steuersatz am 01.01.2007 von 16% auf 19% geaendert.
+
+In den Dateien 'invoiceposf.php' und 'offerposf.php' im Verzeichnis 'update' wurden die
+Anpassungen schon vorgenommen, so dass auch Rechnungen/Angebote, die vor dem 01.01.2007
+erstellt wurden, wieder einen korrekten Steuersatz erhalten.
+
+Wenn Sie einen anderen Steuersatz haben, dann muessen Sie dies vor dem Update manuell anpassen
+
+'invoiceposf.php'
+
+if($Tax == "1" && $InvoiceDate < "2007-01-01")
+{
+	$Tax_Multi = "0.16000";
+	$Tax_Divide = "1.16000";
+	$Tax_Desc = "16.00 %";
+}
+
+'offerposf.php'
+
+if($Tax == "1" && $OfferDate < "2007-01-01")
+{
+	$Tax_Multi = "0.16000";
+	$Tax_Divide = "1.16000";
+	$Tax_Desc = "16.00 %";
+}
+
+Das gleiche gilt auch fuer den 2. Steuersatz.
+
+In beiden Dateien bitte auch $Pos_Group = "Hotel"; anpassen.
+
+Die Gruppe sollte natuerlich schon existieren siehe oben 'posgroup' - Position - Gruppe
+
+Jetzt bitte abmelden und wieder als 'admin' anmelden das Passwort
+ist das gleiche wir in phpRechnung 1.6 Test3.01
+
+Jetzt bitte wieder auf 'Update' klicken und dann wieder auf 'Update phpRechnung'
+
+Je nach Datenmenge kann dieser Vorgang einige Minuten in Anspruch nehmen.
+
+!!! WARNUNG, WAEHREND DER AKTUALISIERUNG BITTE NICHT AUF ABBRECHEN KLICKEN !!!
+!!! ANSONSTEN MUESSEN SIE WIEDER VON VORNE ANFANGEN !!!
+
+Waehrend der Aktualisierung sehen Sie folgende Meldung:
+
+phpRechnung 1.6.4 UPDATE... Please wait, this can take some time.
+
+Wenn die Aktualisierung abgeschlossen wurde erscheint folgende Meldung:
+
+Congratulation, phpRechnung was succesfully updated.
+
+Wenn Sie Fragen oder Anregungen zu phpRechnung haben, dann gehen
+Sie bitte zu Link: http://sourceforge.net/projects/phprechnung/ und
+benutzen das Forum.
+
+Bitte haben Sie Verstaendnis, dass ich direkte Anfragen zu phpRechnung
+aus Zeitgruenden leider nicht mehr beantworten kann.
+
+phpRechnung Homepage - http://www.loenshotel.de/phpRechnung/
+
+Wenn Sie ueber neue Versionen informiert werden moechten, dann
+gehen Sie bitte zu http://freshmeat.net/projects/phprechnung/ und
+lassen sich registieren ( subscribe to new releases )
+oder http://lists.sourceforge.net/lists/listinfo/phprechnung-news
+
+Vielen Dank fuer die Nutzung von phpRechnung
+
+Edy Corak < edy at loenshotel dot de >

@@ -1,0 +1,167 @@
+/*
+	UPDATE-EN - 31.01.2011
+
+	phpRechnung - is easy-to-use Web-based multilingual accounting software.
+	Copyright (C) 2001 - 2011 Edy Corak < edy at loenshotel dot de >
+
+	This program is free software; you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation; either version 2 of the License, or
+	(at your option) any later version.
+
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+*/
+
+
+UPDATE phpRechnung 1.6 Test3.01 to phpRechnung 1.6.4
+
+!!! IMPORTANT NOTE !!!
+
+Before you start an UPDATE please make a dump of your data.
+
+mysqldump -u 'username' -p --add-drop-table 'databasename' > phpinvoice.sql
+
+=============
+Create Tables
+=============
+
+You must import the new tables in the same database as phpRechnung 1.6 Test3.01
+
+mysql -u 'username' -p 'databasename' < phprechnung_1_6_4_update.sql
+
+!!! Note !!!
+
+If you use phpMyAdmin first please select the data base, then select Import,
+Location of the text file: select suitable file: phprechnung_1_6_4_update.sql
+and click on Go.
+
+You will see a message something like this:
+
+Import has been successfully finished, 127 queries executed.
+
+!!! IMPORTANT NOTE !!!
+
+Please don't insert the SQL file into the field Run SQL query/queries on database.
+The data will be inserted without any errors, but thereafter, a login is no longer possible.
+
+===================
+Install phpRechnung
+===================
+
+Unpack phpRechnung_1_6_4.tar.gz - tar zxvf phpRechnung_1_6_4.tar.gz
+Copy the directory ' phpRechnung_1_6_4 ' to your Web server e. g. /var/www
+( or change the name phpRechnung to phpInvoice )
+
+Further information which files still to be adapted, you will find in the README-EN.
+
+If you have changed the value of '$pschluessel' ( 1.6 Test3.01 ) in 'phprechnung.inc.php'
+so please insert this value also in '$pkeyOld' ( 1.6.4 ).
+
+Now we are ready for the first login.
+
+Username is 'admin' password is also 'admin'
+
+After the first login you will be prompted to accept
+the phpInvoice License ( GPL V2 ).
+
+This is needed only once per user.
+
+When you click on 'Accept' you will be redirected to the start page.
+
+Tables that will not be updated:
+
+'category' - Category
+'methodofpay' - Method Of Payment
+'posgroup' - Position / Article - Group
+'tax' - Tax
+
+Now is the right time if you wish to change the predefined descriptions.
+These descriptions will be also saved in offers/invoices ...
+
+======
+UPDATE
+======
+
+On start page please click on 'Update' ( left side down )
+You will be redirected to the Update page. Now click on 'Update Login'
+
+If you have changed the value of '$pschluessel' ( 1.6 Test3.01 ) in 'phprechnung.inc.php'
+and have inserted them into '$pkeyOld' ( 1.6.4 ), please insert the same value from
+'$pkeyOld' ( 1.6.4 ) into '$pkey' ( 1.6.4 ).
+
+If your value of '$pschluessel' ( 1.6 Test3.01 ) was not changed, so there are no more
+changes todo in 'phprechnung.inc.php'. From this point '$pkeyOld' ( 1.6.4 ) is not
+needed anymore.
+
+In Germany on 01.01.2007 the tax was changed from 16% to 19%.
+
+The files 'invoiceposf.php' and 'offerposf.php' in directory 'update' was
+modified so that invoices/offers created before 01.01.2007 have again the correct tax.
+
+If you have another taxes, than you need to make the changes manually
+before you start the update.
+
+'invoiceposf.php'
+
+if($Tax == "1" && $InvoiceDate < "2007-01-01")
+{
+	$Tax_Multi = "0.16000";
+	$Tax_Divide = "1.16000";
+	$Tax_Desc = "16.00 %";
+}
+
+'offerposf.php'
+
+if($Tax == "1" && $OfferDate < "2007-01-01")
+{
+	$Tax_Multi = "0.16000";
+	$Tax_Divide = "1.16000";
+	$Tax_Desc = "16.00 %";
+}
+
+The same for Tax 2 if changed.
+
+In both files please adapt $Pos_Group = "Hotel";
+
+Of course the group must be present before
+See table 'posgroup' - Position / Article - Group
+
+Now please logout and login again as 'admin'
+
+The password is the same as in phpRechnung 1.6 Test3.01
+
+On start page please click again on 'Update' ( left side down )
+and now on 'Update phpRechnung'.
+
+Depend on your data this procedure can take some time.
+
+!!! WARNING, DURING THE UPDATE PROCEDURE DON'T CLICK ON STOP LOADING !!!
+!!! OTHERWISE YOU HAVE TO START AGAIN FROM THE BEGINNING !!!
+
+During the UPDATE you will see the following message:
+
+phpRechnung 1.6.4 UPDATE... Please wait, this can take some time.
+
+After the UPDATE has finished you will see the following message:
+
+Congratulation, phpRechnung was succesfully updated.
+
+If you have any comments or suggestions, so please go to the
+phpInvoice Forum at Link: http://sourceforge.net/projects/phprechnung/
+
+phpRechnung Home page - http://www.loenshotel.de/phpRechnung/
+
+If you wish to subscribe to new releases, please go to
+http://freshmeat.net/projects/phprechnung/ and register
+or http://lists.sourceforge.net/lists/listinfo/phprechnung-news
+
+Thank you for using phpRechnung
+
+Edy Corak < edy at loenshotel dot de >
