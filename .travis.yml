@@ -44,7 +44,7 @@ install:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
 
   # install drush globally
-  - composer global require drush/drush:6.*
+  #- composer global require drush/drush:6.*
 
 before_script:
   # create new database, stubbing sendmail path with true to prevent delivery errors
@@ -54,7 +54,8 @@ before_script:
 
 # omitting "script:" will default to phpunit
 # use the $DB env variable to determine the phpunit.xml to use
-#script: phpunit --configuration phpunit_$DB.xml --coverage-text
+#script: phpunit --configuration tests/phpunit_$DB.xml --coverage-text
+script: phpunit --configuration tests/phpunit.xml --coverage-text
 
 notifications:
   email:
