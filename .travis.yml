@@ -1,6 +1,7 @@
 # whitelist only current branches
 branches:
   only:
+    - travic-ci
     - master
     - stable
 
