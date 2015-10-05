@@ -1,5 +1,5 @@
 <phpunit bootstrap="bootstrap.php">
-  <testsuite name="Integration-Tests">
-    <directory>./Integration/</directory>
+  <testsuite name="phpUnit-Tests">
+    <directory>./phpunit/</directory>
   </testsuite>
 </phpunit>
