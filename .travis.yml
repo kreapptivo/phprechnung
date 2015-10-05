@@ -49,7 +49,7 @@ before_script:
   # create new database, stubbing sendmail path with true to prevent delivery errors
   - mysql -e 'create database phprechnung'
   # use german locale for testing
-  echo 'date.timezone = "Europe/Berlin"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+  - echo 'date.timezone = "Europe/Berlin"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
 # omitting "script:" will default to phpunit
 # use the $DB env variable to determine the phpunit.xml to use
