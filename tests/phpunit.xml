@@ -1,5 +1,12 @@
-<phpunit bootstrap="bootstrap.php">
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit colors="true" bootstrap="tests/bootstrap.php">
   <testsuite name="phpUnit-Tests">
-    <directory>phpunit/</directory>
+    <directory>tests/phpunit/</directory>
   </testsuite>
+  <filter>
+    <whitelist addUncoveredFilesFromWhitelist="true">
+      <directory suffix=".php">PHP</directory>
+    </whitelist>
+  </filter>
 </phpunit>
+
