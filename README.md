@@ -11,9 +11,9 @@ Sprachen:
 Deutsch, Englisch, Französisch, Italienisch, Kroatisch, Niederländisch, Polnisch und Spanisch.
 
 
-Started by Edy  "Edy's phpRechnung" unter https://www.loenshotel.de/phpRechnung
-Letzter Version von "Edy" phpRechnung 1.6.4
+Aus Basis  Edy Corak  "Edy's phpRechnung" unter https://www.loenshotel.de/phpRechnung
+Letzter Version von "Edy's phpRechnung" war 1.6.4 (Stand von 2011)
 
-
+Lizenz: GPLv2
 
 
