@@ -58,7 +58,7 @@ before_script:
 #script: phpunit --configuration tests/phpunit_$DB.xml --coverage-text
 script: 
   - phpunit --configuration tests/phpunit.xml --debug
-  - php tests/coverage-checker.php clover.xml 70
+  - php tests/coverage-checker.php tests/clover.xml 70
 
 notifications:
   email:
