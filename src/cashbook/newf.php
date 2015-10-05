@@ -25,7 +25,7 @@ require_once("../include/phprechnung.inc.php");
 require_once("../include/smarty.inc.php");
 
 CheckUser();
-CheckAdminGroup1();
+CheckAdminGroup2();
 CheckSession();
 
 $ArrayValue = CheckArrayValue($_REQUEST);

@@ -102,7 +102,7 @@ else if ($Password1 != $Password2)
 	UserInput("Password1");
 	$smarty->display('addressbook/editf.tpl');
 }
-else if(isset($_SESSION['Username']) && $_SESSION['Username'] != $root && $_SESSION['Usergroup1'] != $admingroup_1 && $_SESSION['Usergroup2'] != $admingroup_2 && $_SESSION['Username'] != $CreatedBy)
+else if(!is_Superuser() && !is_Admin() && !is_Manager() && $_SESSION['Username'] != $CreatedBy)
 {
 	$smarty->assign("FieldError","$a[no_permission]");
 	UserInput("");

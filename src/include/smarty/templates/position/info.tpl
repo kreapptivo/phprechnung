@@ -92,6 +92,7 @@ href="../configuration.php?{$Session}">{$Configuration}</a></td></tr>
 <tr><td></td></tr>
 <tr><td valign="top" align="right" width="40%">{$PositionName}:</td><td class="dbTxt" valign="top" align="left" width="60%">{$Pos_Name}</td></tr>
 <tr><td valign="top" align="right" width="40%">{$PositionText}:</td><td class="dbTxt" valign="top" align="left" width="60%">{$Pos_Desc|nl2br}</td></tr>
+<tr><td valign="top" align="right" width="40%">{$PositionUnit}:</td><td class="dbTxt" valign="top" align="left" width="60%">{$Pos_Unit}</td></tr>
 <tr><td valign="top" align="right" width="40%">{$PositionPrice} {$Currency}:</td><td class="dbTxt" valign="top" align="left" width="60%">{$Pos_Price|number_format}</td></tr>
 <tr><td valign="top" align="right" width="40%">{$Tax}:&nbsp;[&nbsp;<a class="nlink" title="{$Tax} - {$Info}" href="../tax/list.php?{$Session}">&nbsp;i&nbsp;</a>&nbsp;]&nbsp;</td>
 <td class="dbTxt" valign="top" align="left" width="60%">{$Pos_Tax}</td></tr>
@@ -106,6 +107,7 @@ href="../configuration.php?{$Session}">{$Configuration}</a></td></tr>
 	<form action="searchlist.php?{$Session}#{$posID}" method="post">
 	<input type="hidden" name="page" value="{$page}" />
 	<input type="hidden" name="Pos_Name1" value="{$Pos_Name1}" />
+	<input type="hidden" name="Pos_Unit1" value="{$Pos_Unit1}" />
 	<input type="hidden" name="Pos_Desc1" value="{$Pos_Desc1}" />
 	<input type="hidden" name="Pos_Price1" value="{$Pos_Price1}" />
 	<input type="hidden" name="Note1" value="{$Note1}" />

@@ -23,8 +23,17 @@
 
 	global $a, $PrintCompanyData, $CompanyName, $CompanyAddress, $CompanyPostal, $CompanyCity, $CompanyCountry,
 	$CompanyPhone, $CompanyFax, $CompanyEmail, $CompanyURL, $BankName, $BankAccount, $BankNumber, $PDFFont,
-	$PDFFontsize1, $PDFFontsize2;
+	$PDFFontsize1, $PDFFontsize2,$PDFLeftMargin,$PDFRightMargin,
+	$TOTAL_AMOUNT, $Subtotal_netto,$Currency;
 
+	//Zwischensumme für Übertrag anzeigen
+	if (($Subtotal_netto>0)and($TOTAL_AMOUNT==0)) {
+		$this->SetFont($PDFFont,'I',$PDFFontsize1);
+		if($PrintPositionName) $this->Cell(10);
+		$this->Cell(30);
+		$this->Cell(210-$this->GetX()-$PDFRightMargin-30,4,$a['invoice_subtotal'].':',0,0,'R');
+		$this->Cell(30,4,Format_Number($Subtotal_netto).' '.$Currency,0,0,'R');
+	}
 	if ($PrintCompanyData === "1" || $PrintCompanyData === "On")
 	{
 		$this->SetX(8);

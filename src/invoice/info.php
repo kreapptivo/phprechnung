@@ -202,7 +202,7 @@ if ($invoiceID < $maxInvoiceID)
 	$smarty->assign('NextInvoiceID', "$CurrentInvoiceID");
 }
 
-if(isset($_SESSION['Username']) && $_SESSION['Username'] != $root && $_SESSION['Username'] != $CreatedBy)
+if(!is_Superuser() && !is_Admin() && !is_Manager() && $_SESSION['Username'] != $CreatedBy)
 {
 	$_SESSION['LastSite'] = $_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING'];
 	$_SESSION['logoutid'] = "5";

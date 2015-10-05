@@ -59,33 +59,59 @@ $smarty->assign("PositionSearch","$a[pos_search]");
 //
 DBConnect();
 
+//Check for User Tax-Setting?
+if(isset($myID) && is_numeric($myID))
+{
+	//Kunde gesetzt
+	$c = $db->GetRow("SELECT TAX_FREE FROM {$TBLName}addressbook WHERE MYID=$myID");
+	if ($c['TAX_FREE']==1) {
+		//Sonderfall: Kunde ist steuerbefreit!
+		$TAX_FREE = true;
+		//Steuerdetails Überschreiben
+	}else{
+		$TAX_FREE = false;
+	}
+}else{
+	$TAX_FREE = false;
+}
+
+
 // Get data from company_settings.inc.php
 //
 $smarty->assign("Offer_Currency",$CompanyCurrency);
 
-if(!empty($PosID) && is_numeric($PosID))
-{
+if(!empty($PosID) && is_numeric($PosID)){
 	$query1 = $db->Execute("SELECT P.POSITIONID, P.POS_NAME, P.POS_DESC, P.POS_ACTIVE, P.POS_PRICE, P.POS_TAX, P.POS_GROUP, T.TAXID, T.TAX_MULTI, T.TAX_DIVIDE, T.TAX_DESC FROM {$TBLName}article AS P, {$TBLName}tax AS T WHERE P.POS_ACTIVE='1' AND P.POS_TAX=T.TAXID AND P.POSITIONID=$PosID");
 
-// If an error has occurred, display the error message
-//
-if (!$query1)
-	print($db->ErrorMsg());
-else
-	foreach($query1 as $f)
-	{
-		$smarty->assign("POSITIONID",$f['POSITIONID']);
-		$smarty->assign("POS_NAME",$f['POS_NAME']);
-		$smarty->assign("POS_DESC",$f['POS_DESC']);
-		$smarty->assign("POS_PRICE",$f['POS_PRICE']);
-		$smarty->assign("POS_TAX",$f['POS_TAX']);
-		$smarty->assign("POS_TAX_MULTI",$f['TAX_MULTI']);
-		$smarty->assign("POS_TAX_DIVIDE",$f['TAX_DIVIDE']);
-		$smarty->assign("POS_TAX_DESC",$f['TAX_DESC']);
-		$smarty->assign("POS_GROUP",$f['POS_GROUP']);
+	// If an error has occurred, display the error message
+	//
+	if (!$query1) {
+		print($db->ErrorMsg());
+	}else{
+		if (!isset($TaxFree)) $TaxFree = false;
+		foreach($query1 as $f)
+		{
+			$smarty->assign("POSITIONID",$f['POSITIONID']);
+			$smarty->assign("POS_NAME",$f['POS_NAME']);
+			$smarty->assign("POS_DESC",$f['POS_DESC']);
+			$smarty->assign("POS_PRICE",$f['POS_PRICE']);
+			//Steuerfrei?
+			if ($TAX_FREE || $TaxFree == '1') {
+				$smarty->assign("POS_TAX",0);
+				$smarty->assign("POS_TAX_MULTI",0);
+				$smarty->assign("POS_TAX_DIVIDE",1);
+				$smarty->assign("POS_TAX_DESC","");
+			}else{
+				$smarty->assign("POS_TAX",$f['POS_TAX']);
+				$smarty->assign("POS_TAX_MULTI",$f['TAX_MULTI']);
+				$smarty->assign("POS_TAX_DIVIDE",$f['TAX_DIVIDE']);
+				$smarty->assign("POS_TAX_DESC",$f['TAX_DESC']);
+			}
+			$smarty->assign("POS_GROUP",$f['POS_GROUP']);
+		}
 	}
-}
 
-$smarty->display('invoice/posnew.tpl');
+	$smarty->display('invoice/posnew.tpl');
+}
 
 ?>

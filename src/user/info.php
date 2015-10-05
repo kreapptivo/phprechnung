@@ -53,7 +53,7 @@ DBConnect();
 
 // Get entrys from user table
 //
-$query = $db->Execute("SELECT USERID, DECODE(FULLNAME,'$pkey') AS FULLNAME, DECODE(USERNAME,'$pkey') AS USERNAME, DECODE(USERGROUP1,'$pkey') AS USERGROUP1, DECODE(USERGROUP2,'$pkey') AS USERGROUP2, LANGUAGE, USER_ACTIVE FROM {$TBLName}user WHERE USERID=$userID");
+$query = $db->Execute("SELECT USERID, FULLNAME, USERNAME, USERGROUP1, USERGROUP2, LANGUAGE, USER_ACTIVE FROM {$TBLName}user WHERE USERID=$userID");
 
 // If an error has occurred, display the error message
 //
@@ -75,7 +75,7 @@ else
 		$smarty->assign("USERGROUP2",$group[$UserGroup2]);
 	}
 
-	if(isset($_SESSION['Username']) && $_SESSION['Username'] != $root && $_SESSION['Username'] != $UserName)
+	if(!is_Superuser() && !is_Admin() &&  $_SESSION['Username'] != $UserName)
 	{
 		$_SESSION['LastSite'] = $_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING'];
 		$_SESSION['logoutid'] = "5";

@@ -25,7 +25,7 @@ require_once("../include/phprechnung.inc.php");
 require_once("../include/smarty.inc.php");
 
 CheckUser();
-CheckAdminGroup1();
+CheckAdminGroup2();
 CheckSession();
 
 $ArrayValue = CheckArrayValue($_REQUEST);
@@ -49,6 +49,7 @@ if(isset($infoID) && $infoID == '9')
 
 $smarty->assign("Title","$a[position] - $a[edit]");
 $smarty->assign("PositionName","$a[pos_name]");
+$smarty->assign("PositionUnit","$a[pos_unit]");
 $smarty->assign("PositionText","$a[pos_text]");
 $smarty->assign("PositionPrice","$a[pos_price]");
 $smarty->assign("PositionActive","$a[pos_active]");
@@ -107,7 +108,7 @@ else
 
 // Get entrys from position table
 //
-$query = $db->Execute("SELECT POSITIONID, POS_ACTIVE, POS_NAME, POS_DESC, POS_PRICE, POS_TAX, POSGROUPID, NOTE FROM {$TBLName}article WHERE POSITIONID=$posID");
+$query = $db->Execute("SELECT POSITIONID, POS_ACTIVE, POS_NAME, POS_UNIT, POS_DESC, POS_PRICE, POS_TAX, POSGROUPID, NOTE FROM {$TBLName}article WHERE POSITIONID=$posID");
 
 // If an error has occurred, display the error message
 //
@@ -131,6 +132,14 @@ else
 		else
 		{
 			$smarty->assign("Pos_Name",$Pos_Name);
+		}
+		if (empty($Pos_Unit))
+		{
+			$smarty->assign("Pos_Unit",$f['POS_UNIT']);
+		}
+		else
+		{
+			$smarty->assign("Pos_Unit",$Pos_Unit);
 		}
 		if (empty($Pos_Desc))
 		{

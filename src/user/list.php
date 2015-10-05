@@ -28,6 +28,8 @@ CheckUser();
 CheckSession();
 UserSite();
 
+$Allowed_to_Update = is_Admin();
+
 $ArrayValue = CheckArrayValue($_REQUEST);
 
 foreach($ArrayValue as $key => $val)
@@ -46,7 +48,7 @@ if(!isset($Sort) || $Sort !== 'ASC' && $Sort !== 'DESC')
 	$Sort = "";
 }
 
-if(empty($Order) || $Order !== 'LANGUAGE' && $Order !== 'FULLNAME')
+if(empty($Order))
 {
 	$Order = "FULLNAME";
 	$Sort = "";
@@ -54,9 +56,13 @@ if(empty($Order) || $Order !== 'LANGUAGE' && $Order !== 'FULLNAME')
 
 $smarty->assign("Title","$a[user_admin] - $a[list]");
 $smarty->assign("Full_Name","$a[fullname]");
+$smarty->assign("User_Group1","$a[usergroup]");
+$smarty->assign("User_Group2","$a[usergroup]");
 $smarty->assign("Language","$a[language]");
 $smarty->assign("EntryChanged","$a[entry_changed]");
 $smarty->assign("EntryDeleted","$a[entry_deleted]");
+
+$smarty->assign("Allowed_to_Update", $Allowed_to_Update);
 
 // Database connection
 //
@@ -66,7 +72,22 @@ $intCursor = ($page - 1) * $EntrysPerPage;
 
 // Get User Information
 //
-$query = $db->Execute("SELECT USERID, DECODE(FULLNAME,'$pkey') AS FULLNAME, DECODE(USERNAME,'$pkey') AS USERNAME, LANGUAGE FROM {$TBLName}user ORDER BY $Order $Sort LIMIT $intCursor, $EntrysPerPage");
+$cases = "";
+foreach ($group as $key => $value) {
+	$cases.=" WHEN '".$key."' THEN '".$value."'";
+	$def_case = $value;
+}
+
+$query = $db->Execute("SELECT USERID, FULLNAME, USERNAME, LANGUAGE, 
+ CASE USERGROUP1
+  ".$cases."
+ ELSE '".$def_case."'
+ END as USERGROUP1,
+ CASE USERGROUP2
+  ".$cases."
+ ELSE '".$def_case."'
+ END as USERGROUP2
+FROM {$TBLName}user ORDER BY $Order $Sort LIMIT $intCursor, $EntrysPerPage");
 
 // If an error has occurred, display the error message
 //

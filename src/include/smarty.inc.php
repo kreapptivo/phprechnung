@@ -38,7 +38,9 @@ $smarty = new Smarty;
 // If you change $Templateroot you need also to change
 // template_dir and config_dir in smarty.inc.php
 //
-$Templateroot = $_SERVER['DOCUMENT_ROOT']."phpRechnung";
+//$root = $_SERVER['DOCUMENT_ROOT']."/rechnung";
+$root =  $_SERVER['DOCUMENT_ROOT']."/projekte/phprechnung";
+$Templateroot = $root;
 
 $smarty->template_dir = "$Templateroot/include/smarty/templates";
 $smarty->config_dir = "$Templateroot/include/smarty/configs";
@@ -55,7 +57,7 @@ $smarty->config_dir = "$Templateroot/include/smarty/configs";
 // If you change $Cacheroot you need also to change
 // compile_dir and cache_dir in smarty.inc.php
 //
-$Cacheroot = $_SERVER['DOCUMENT_ROOT']."phpRechnung";
+$Cacheroot =$root;
 
 $smarty->compile_dir = "$Cacheroot/include/smarty/templates_c";
 $smarty->cache_dir = "$Cacheroot/include/smarty/cache";
@@ -142,10 +144,10 @@ $smarty->assign("Entrys","$a[entries]");
 //
 $smarty->assign("Session","$sessname=$sessid");
 $smarty->assign("Web","$web");
-$smarty->assign("Root","$root");
-$smarty->assign("AdminGroup1","$admingroup_1");
-$smarty->assign("AdminGroup2","$admingroup_2");
-$smarty->assign("AdminGroup3","$admingroup_3");
+$smarty->assign("Root",SUPER_USER);
+$smarty->assign("AdminGroup1",USERGROUP_ADMIN);
+$smarty->assign("AdminGroup2",USERGROUP_MANAGER);
+$smarty->assign("AdminGroup3",USERGROUP_BOOKKEEPING);
 $smarty->assign("MultiBar","$MultiBar");
 $smarty->assign("Hostname","$Hostname");
 $smarty->assign("IPAddress","$IPAddress");

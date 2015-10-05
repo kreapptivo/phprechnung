@@ -37,5 +37,4 @@ $smarty->assign("Delete","$a[delete]");
 $smarty->display('login/login.tpl');
 
 unset($_SESSION['logoutid']);
-
 ?>

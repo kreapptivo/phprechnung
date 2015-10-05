@@ -1013,10 +1013,9 @@ function Output($name='', $dest='')
 				$this->Error('Some data has already been output, can\'t send PDF file');
 			if(php_sapi_name()!='cli')
 			{
-				//We send to a browser
+				//We send to a browser				
+				if(headers_sent()) $this->Error('Some data has already been output, can\'t send PDF file');
 				header('Content-Type: application/pdf');
-				if(headers_sent())
-					$this->Error('Some data has already been output, can\'t send PDF file');
 				header('Content-Length: '.strlen($this->buffer));
 				header('Content-Disposition: inline; filename="'.$name.'"');
 				header('Cache-Control: private, max-age=0, must-revalidate');
@@ -1028,10 +1027,10 @@ function Output($name='', $dest='')
 		case 'D':
 			//Download file
 			if(ob_get_length())
-				$this->Error('Some data has already been output, can\'t send PDF file');
-			header('Content-Type: application/x-download');
+				$this->Error('Some data has already been output, can\'t send PDF file');			
 			if(headers_sent())
 				$this->Error('Some data has already been output, can\'t send PDF file');
+			header('Content-Type: application/x-download');
 			header('Content-Length: '.strlen($this->buffer));
 			header('Content-Disposition: attachment; filename="'.$name.'"');
 			header('Cache-Control: private, max-age=0, must-revalidate');
@@ -1042,8 +1041,7 @@ function Output($name='', $dest='')
 		case 'F':
 			//Save to local file
 			$f=fopen($name,'wb');
-			if(!$f)
-				$this->Error('Unable to create output file: '.$name);
+			if(!$f) $this->Error('Unable to create output file: '.$name);
 			fwrite($f,$this->buffer,strlen($this->buffer));
 			fclose($f);
 			break;

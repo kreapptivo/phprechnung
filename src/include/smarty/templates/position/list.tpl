@@ -99,6 +99,10 @@ href="../configuration.php?{$Session}">{$Configuration}</a></td></tr>
 <a href="{$smarty.server.PHP_SELF}?{$AddCurrentPage}Order=POS_GROUP&amp;Sort=ASC&amp;{$Session}"><img border="0" src="../images/up.png" title="{$SortMsg} {$PositionGroup} ASC" alt="{$SortMsg} {$PositionGroup} ASC" /></a>
 <a href="{$smarty.server.PHP_SELF}?{$AddCurrentPage}Order=POS_GROUP&amp;Sort=DESC&amp;{$Session}"><img border="0" src="../images/down.png" title="{$SortMsg} {$PositionGroup} DESC" alt="{$SortMsg} {$PositionGroup} DESC" /></a>
 </td>
+<td nowrap="nowrap" align="right">{$PositionUnit}
+<a href="{$smarty.server.PHP_SELF}?{$AddCurrentPage}Order=POS_UNIT&amp;Sort=ASC&amp;{$Session}"><img border="0" src="../images/up.png" title="{$SortMsg} {$PositionPrice} ASC" alt="{$SortMsg} {$PositionUnit} ASC" /></a>
+<a href="{$smarty.server.PHP_SELF}?{$AddCurrentPage}Order=POS_UNIT&amp;Sort=DESC&amp;{$Session}"><img border="0" src="../images/down.png" title="{$SortMsg} {$PositionPrice} DESC" alt="{$SortMsg} {$PositionUnit} DESC" /></a>
+</td>
 <td nowrap="nowrap" align="right">{$PositionPrice} {$Currency}
 <a href="{$smarty.server.PHP_SELF}?{$AddCurrentPage}Order=POS_PRICE&amp;Sort=ASC&amp;{$Session}"><img border="0" src="../images/up.png" title="{$SortMsg} {$PositionPrice} ASC" alt="{$SortMsg} {$PositionPrice} ASC" /></a>
 <a href="{$smarty.server.PHP_SELF}?{$AddCurrentPage}Order=POS_PRICE&amp;Sort=DESC&amp;{$Session}"><img border="0" src="../images/down.png" title="{$SortMsg} {$PositionPrice} DESC" alt="{$SortMsg} {$PositionPrice} DESC" /></a>
@@ -119,6 +123,7 @@ href="../configuration.php?{$Session}">{$Configuration}</a></td></tr>
 	<td valign="top" align="left"><a name="{$position.POSITIONID}" title="{$AllInformation} {$position.POS_NAME}" class="ninfolink" href="info.php?posID={$position.POSITIONID}&amp;{$AddCurrentPage}Order={$Order}&amp;Sort={$Sort}&amp;Pos_Active1={$Pos_Active1}&amp;{$Session}">{$position.POS_NAME}</a></td>
 	<td valign="top" align="left">{$position.POS_DESC|nl2br}</td>
 	<td valign="top" align="left">{$position.POS_GROUP|nl2br}</td>
+	<td valign="top" align="right">{$position.POS_UNIT}</td>
 	<td valign="top" align="right">{$position.POS_PRICE|number_format}</td>
 	{if $smarty.session.Username and ( $smarty.session.Username == $Root or $smarty.session.Usergroup1 == $AdminGroup1 or $smarty.session.Usergroup2 == $AdminGroup2)}
 		<td valign="top" align="center"><a href="edit.php?posID={$position.POSITIONID}&amp;{$AddCurrentPage}Order={$Order}&amp;Sort={$Sort}&amp;Pos_Active1={$Pos_Active1}&amp;{$Session}"><img border="0" src="../images/edit.png" title="{$Editentry}" alt="{$Editentry}" /></a></td>

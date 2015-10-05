@@ -46,7 +46,7 @@ if(!isset($Sort) || $Sort !== 'ASC' && $Sort !== 'DESC')
 	$Sort = "";
 }
 
-if(empty($Order) || $Order !== 'POS_NAME' && $Order !== 'POS_DESC' && $Order !== 'POS_GROUP' && $Order !== 'POS_PRICE')
+if(empty($Order) || $Order !== 'POS_NAME' && $Order !== 'POS_DESC' && $Order !== 'POS_GROUP' && $Order !== 'POS_PRICE' && $Order !== 'POS_UNIT')
 {
 	$Order = "POS_GROUP ASC,POS_DESC ASC";
 	$Sort = "";
@@ -55,6 +55,7 @@ if(empty($Order) || $Order !== 'POS_NAME' && $Order !== 'POS_DESC' && $Order !==
 $smarty->assign("Title","$a[position] - $a[list]");
 $smarty->assign("PositionName","$a[pos_name]");
 $smarty->assign("PositionText","$a[pos_text]");
+$smarty->assign("PositionUnit","$a[pos_unit]");
 $smarty->assign("PositionGroup","$a[pos_group]");
 $smarty->assign("PositionPrice","$a[pos_price]");
 $smarty->assign("PositionActive","$a[pos_active]");
@@ -74,25 +75,25 @@ $intCursor = ($page - 1) * $EntrysPerPage;
 //
 if(isset($Pos_Active1) && $Pos_Active1 == '1')
 {
-	$query = $db->Execute("SELECT POSITIONID, POS_NAME, POS_DESC, POS_GROUP, POS_PRICE, POS_ACTIVE FROM {$TBLName}article WHERE POS_ACTIVE='1' ORDER BY $Order $Sort LIMIT $intCursor, $EntrysPerPage");
+	$query = $db->Execute("SELECT POSITIONID, POS_NAME, POS_UNIT, POS_DESC, POS_GROUP, POS_PRICE, POS_ACTIVE FROM {$TBLName}article WHERE POS_ACTIVE='1' ORDER BY $Order $Sort LIMIT $intCursor, $EntrysPerPage");
 
 	$query1 = $db->Execute("SELECT POS_ACTIVE FROM {$TBLName}article WHERE POS_ACTIVE='1'");
 }
 else if(isset($Pos_Active1) && $Pos_Active1 == '2')
 {
-	$query = $db->Execute("SELECT POSITIONID, POS_NAME, POS_DESC, POS_GROUP,  POS_PRICE, POS_ACTIVE FROM {$TBLName}article WHERE POS_ACTIVE='2' ORDER BY $Order $Sort LIMIT $intCursor, $EntrysPerPage");
+	$query = $db->Execute("SELECT POSITIONID, POS_NAME, POS_UNIT, POS_DESC, POS_GROUP,  POS_PRICE, POS_ACTIVE FROM {$TBLName}article WHERE POS_ACTIVE='2' ORDER BY $Order $Sort LIMIT $intCursor, $EntrysPerPage");
 
 	$query1 = $db->Execute("SELECT POS_ACTIVE FROM {$TBLName}article WHERE POS_ACTIVE='2'");
 }
 else if(isset($Pos_Active1) && $Pos_Active1 == '3')
 {
-	$query = $db->Execute("SELECT POSITIONID, POS_NAME, POS_DESC, POS_GROUP,  POS_PRICE, POS_ACTIVE FROM {$TBLName}article ORDER BY $Order $Sort LIMIT $intCursor, $EntrysPerPage");
+	$query = $db->Execute("SELECT POSITIONID, POS_NAME, POS_UNIT,  POS_DESC, POS_GROUP,  POS_PRICE, POS_ACTIVE FROM {$TBLName}article ORDER BY $Order $Sort LIMIT $intCursor, $EntrysPerPage");
 
 	$query1 = $db->Execute("SELECT POSITIONID FROM {$TBLName}article");
 }
 else
 {
-	$query = $db->Execute("SELECT POSITIONID, POS_NAME, POS_DESC, POS_GROUP,  POS_PRICE, POS_ACTIVE FROM {$TBLName}article WHERE POS_ACTIVE='1' ORDER BY $Order $Sort LIMIT $intCursor, $EntrysPerPage");
+	$query = $db->Execute("SELECT POSITIONID, POS_NAME, POS_UNIT, POS_DESC, POS_GROUP,  POS_PRICE, POS_ACTIVE FROM {$TBLName}article WHERE POS_ACTIVE='1' ORDER BY $Order $Sort LIMIT $intCursor, $EntrysPerPage");
 
 	$query1 = $db->Execute("SELECT POS_ACTIVE FROM {$TBLName}article WHERE POS_ACTIVE='1'");
 }

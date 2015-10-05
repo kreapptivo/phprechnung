@@ -19,5 +19,4 @@
 	Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *}
 {* If you don't like the copyright to be printed, then change <p align="center" to <p id="top12" align="center" *}
-<p align="center" class="stext">{$Phprechnung}<br /></p>
-</body></html>
+<p align="center" class="stext">{$Phprechnung}<br /></p></body></html>

@@ -111,7 +111,6 @@ td {
     <p>no templates included</p>
 {/section}
 </div>
-
 <h2>assigned template variables</h2>
 
 <table id="table_assigned_vars">

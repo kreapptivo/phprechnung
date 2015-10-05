@@ -30,13 +30,15 @@
 <input type="hidden" name="Pos_Active" value="{$Pos_Active}" />
 <input type="hidden" name="Pos_Name" value="{$Pos_Name}" />
 <input type="hidden" name="Pos_Desc" value="{$Pos_Desc}" />
+<input type="hidden" name="Pos_Unit" value="{$Pos_Unit}" />
 <input type="hidden" name="Pos_Price" value="{$Pos_Price}" />
 <input type="hidden" name="Pos_Tax" value="{$Pos_Tax}" />
 <input type="hidden" name="PosGroupID" value="{$PosGroupID}" />
 <input type="hidden" name="Note" value="{$Note}" />
 {if $infoID eq 9}
 	<input type="hidden" name="Pos_Name1" value="{$Pos_Name1}" />
-	<input type="hidden" name="Pos_Desc1" value="{$Pos_Desc1}" />
+	<input type="hidden" name="Pos_Unit1" value="{$Pos_Unit1}" />
+	<input type="hidden" name="Pos_Name1" value="{$Pos_Name1}" />
 	<input type="hidden" name="Pos_Price1" value="{$Pos_Price1}" />
 	<input type="hidden" name="Note1" value="{$Note1}" />
 	<input type="hidden" name="Pos_Active1" value="{$Pos_Active1}" />

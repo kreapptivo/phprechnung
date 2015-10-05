@@ -48,5 +48,4 @@ $report = asort($reports);
 $smarty->assign("choose_report",array($reports));
 
 $smarty->display('reports/index.tpl');
-
 ?>

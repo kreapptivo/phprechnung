@@ -72,8 +72,7 @@ href="license.php?{$Session}">{$License}</a></td></tr>
 [&nbsp;<a class="ninfolink" href="http://sourceforge.net/forum/?group_id=152251" target="_blank" title="phpRechnung Forum">Forum</a>&nbsp;]&nbsp;
 [&nbsp;<a class="ninfolink" href="http://sourceforge.net/mail/?group_id=152251" target="_blank" title="Mailing Lists">Lists</a>&nbsp;]&nbsp;
 [&nbsp;<a class="ninfolink" href="http://sourceforge.net/export/rss2_project.php?group_id=152251" target="_blank" title="Project RSS Feeds">RSS Feeds</a>&nbsp;]
-</p>
-<p>&nbsp;</p>
+</p><p>&nbsp;</p>
 <h2>{$Startpage}</h2>
 <p>&nbsp;</p>
 <p align="center">{$Welcome} {$Programname}</p>

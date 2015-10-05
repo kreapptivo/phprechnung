@@ -52,7 +52,7 @@ function UserInput($mark)
 	$smarty->assign("mark",$mark);
 }
 
-if (!ereg("^([a-zA-Z0-9\.\_\-]+)@([a-zA-Z0-9\.\-]+\.[A-Za-z][A-Za-z]+)$",$EmailTo))
+if (!preg_match("{^([a-zA-Z0-9\.\_\-]+)@([a-zA-Z0-9\.\-]+\.[A-Za-z][A-Za-z]+)$}",$EmailTo))
 {
 	$smarty->assign("FieldError","$a[email_to] - $a[field_error]");
 	UserInput("EmailTo");
@@ -76,14 +76,7 @@ else
 	{
 		require_once("../include/mail.inc.php");
 
-		if($PHPSendMail == "1")
-		{
-			PEAR_Email_PlainText($EmailTo, $EmailCc, $EmailBcc, $EmailPriority, $EmailSubject, $EmailText, $_SESSION['Charset']);
-		}
-		else
-		{
-			Email_PlainText($EmailTo, $EmailCc, $EmailBcc, $EmailPriority, $EmailSubject, $EmailText, $_SESSION['Charset']);
-		}
+		Email($EmailTo, $EmailCc, $EmailBcc, $EmailPriority, $EmailSubject, $EmailText);
 
 		// Database connection
 		//

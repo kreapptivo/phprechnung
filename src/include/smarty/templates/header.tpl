@@ -32,6 +32,5 @@
 <link rel="stylesheet" type="text/css" href="{$Web}/include/phprechnung.css" title="phpRechnung Default Style" media="print,screen" />
 <link rel="icon" href="{$Web}/images/favicon.png" type="image/png" />
 {literal}
-
 {/literal}
 </head>

@@ -26,7 +26,7 @@ if(isset($_SESSION['Language']) && $_SESSION['Language']== '1')
 {
 	require_once("language/german.php");
 	$_SESSION['Help'] = "help/de";
-	setlocale(LC_ALL, 'de_DE@euro', 'de_DE', 'de_DE.UTF-8');
+	setlocale(LC_ALL, 'de_DE@euro', 'de_DE', 'de_DE.UTF-8', 'ger', 'deu');
 	$_SESSION['Charset'] = "ISO-8859-15";
 	//$_SESSION['Charset'] = "UTF-8";
 }
@@ -92,9 +92,9 @@ else
 	//
 	//	German
 	//
-	//require_once("language/german.php");
-	//setlocale(LC_ALL, 'de_DE@euro', 'de_DE', 'de_DE.UTF-8');
-	//$_SESSION['Charset'] = "ISO-8859-15";
+	require_once("language/german.php");
+	setlocale(LC_ALL, 'de_DE@euro', 'de_DE', 'de_DE.UTF-8');
+	$_SESSION['Charset'] = "ISO-8859-15";
 	
 	//	English
 	//

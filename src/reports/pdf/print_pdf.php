@@ -228,6 +228,27 @@ else if(isset($Type) && $Type == 'Position_Sales_Summary')
 		$TotalPosAmount += $posresult['POS_AMOUNT'];
 	}
 }
+else if(isset($Type) && $Type == 'Tax_Report')
+{
+	$Subject = "$a[reports] - $a[tax_report], $a[date_text]: $DateFrom $a[date_till] $DateTill";
+	$sql="SELECT YEAR( PAYMENT_DATE ) AS YEAR, QUARTER( PAYMENT_DATE ) AS QUARTER, MONTH( PAYMENT_DATE ) AS MONTH , 
+	sum( TAX1_TOTAL ) AS TAX1_TOTAL, SUM( SUBTOTAL1 ) AS SUBTOTAL1, 
+	sum( TAX2_TOTAL ) AS TAX2_TOTAL, SUM( SUBTOTAL2 ) AS SUBTOTAL2, 
+	sum( TAX3_TOTAL ) AS TAX3_TOTAL, SUM( SUBTOTAL3 ) AS SUBTOTAL3, 
+	sum( TAX4_TOTAL ) AS TAX4_TOTAL, SUM( SUBTOTAL4 ) AS SUBTOTAL4, 
+	sum( TOTAL_AMOUNT ) AS TOTAL_AMOUNT, sum( Z.SUM_PAID ) AS SUM_PAID
+	FROM invoice AS I
+	JOIN payment AS Z
+	USING ( INVOICEID )
+	WHERE I.CANCELED =2
+	AND I.INVOICE_DATE >= '".$DateFromF."'
+	AND I.INVOICE_DATE <= '".$DateTillF."'
+	GROUP BY YEAR( PAYMENT_DATE ) ASC , QUARTER( PAYMENT_DATE ) ASC , MONTH( PAYMENT_DATE ) ASC
+	WITH ROLLUP";
+	$posquery = $db->Execute($sql);
+
+}
+
 
 require_once('pdf.inc.php');
 

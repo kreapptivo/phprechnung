@@ -227,6 +227,7 @@ $a = array (
 	"pos_inactive" => "Position inactive",
 	"pos_all" => "Show all positions",
 	"pos_name" => "Position / Article",
+	"pos_unit" => "Unit",
 	"pos_text" => "Description",
 	"pos_quantity" => "Quantity",
 	"pos_price" => "Price",

@@ -85,6 +85,8 @@ $smarty->assign("OpenSince","$a[open_since]");
 
 // Get Update Status Information
 //
+//DEPRECATED!!!
+/***
 $query1 = $db->Execute("SELECT LOGINUPDATE, TABLEUPDATE FROM {$TBLName}updatetable WHERE UPDATEID=1");
 
 if (!$query1)
@@ -95,6 +97,10 @@ else
 		$smarty->assign("LOGINUPDATE",$f1['LOGINUPDATE']);
 		$smarty->assign("TABLEUPDATE",$f1['TABLEUPDATE']);
 	}
+
+***/
+$smarty->assign("LOGINUPDATE",1);
+$smarty->assign("TABLEUPDATE",1);
 
 $smarty->display('index.tpl');
 

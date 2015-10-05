@@ -101,32 +101,43 @@ else
 		$smarty->assign("COMPANY",$f['COMPANY']);
 		$smarty->assign("EMAIL_TO",$f['EMAIL']);
 
-		if(!empty($f['LASTNAME']))
+
+		if(!empty($f['LASTNAME']) && ($f['PRINT_NAME']==1))
 		{
-			$smarty->assign("SALUTATION",$f['SALUTATION'].' '.$f['FIRSTNAME'].' '.$f['LASTNAME'].",\n\n");
+			if (!empty($f['SALUTATION'])) {
+			    $f['SALUTATION'].= ' ';
+			} else {
+			    if($f['PREFIX']=='Herr') $f['SALUTATION']='Sehr geehrter ';
+			    if($f['PREFIX']=='Frau') $f['SALUTATION']='Sehr geehrte ';
+			}
+			if (!empty($f['PREFIX'])) $f['SALUTATION'].= $f['PREFIX'].' ';
+			if (!empty($f['TITLE'])) $f['SALUTATION'].= $f['TITLE'].' ';
+			if (!empty($f['FIRSTNAME'])) $f['SALUTATION'].=$f['FIRSTNAME'].' ';
+			$f['SALUTATION'].=$f['LASTNAME'];
+		}else{
+			//$smarty->assign("SALUTATION",$f['SALUTATION'].",\n\n");
+			$f['SALUTATION'] = $SalutationGeneral;
 		}
-		else
-		{
-			$smarty->assign("SALUTATION",$f['SALUTATION'].",\n\n");
-		}
+		$smarty->assign("SALUTATION",$f['SALUTATION'].",\n\n");
 	}
 
 $PrintD = Print_Date($OfferDate);
-$smarty->assign("PrintDate",$PrintD.'-'.$OfferID);
+$smarty->assign("PrintDate",$PrintD.'-'.$InvoiceID);
 
 $patterns[0] = '/{NUMBER}/i';
 $patterns[1] = '/{DATE}/i';
 $patterns[2] = '/&/i';
 $patterns[3] = '/{TYPE}/i';
-$replacements[0] = $PrintD.'-'.$OfferID;
-$replacements[1] = $OfferDate;
-$replacements[2] = '&amp;';
-if ($SendEmail == 1)
-{
+
+if ($SendEmail == 1){
+	$replacements[0] = $a['offer_initials'].'-'.$PrintD.'-'.str_pad($OfferID, 3 ,'0', STR_PAD_LEFT);
+	$replacements[1] = $OfferDate;
+	$replacements[2] = '&amp;';
 	$replacements[3] = $a['offer'];
-}
-else
-{
+}else{
+	$replacements[0] = $a['order_initials'].'-'.$PrintD.'-'.str_pad($OfferID, 3 ,'0', STR_PAD_LEFT);
+	$replacements[1] = $OfferDate;
+	$replacements[2] = '&amp;';
 	$replacements[3] = $a['order'];
 }
 $PDFAttachmentText = preg_replace($patterns,$replacements,$PDFAttachmentText);

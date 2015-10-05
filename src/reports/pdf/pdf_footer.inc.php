@@ -25,7 +25,7 @@
 
 	$this->Line(10,285,205,285);
 	$this->SetY(-10);
-	$this->SetFont($PDFFont,'',$PDFFontsize1);
+	$this->SetFont($PDFFont,'I',$PDFFontsize1);
 	$this->Cell(80,5,$Strftime,0,1,'L');
 	$this->SetY(-10);
 	$this->Cell(195,5,$a['page'].': '.$this->PageNo().'/{nb}',0,0,'R');

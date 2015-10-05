@@ -92,6 +92,11 @@ href="help.php?{$Session}">{$Help}</a></td></tr>
 <tr class="mblueTD">
 <td nowrap="nowrap" align="left">{$Full_Name}
 <a href="{$smarty.server.PHP_SELF}?{$AddCurrentPage}Order=FULLNAME&amp;Sort=ASC&amp;{$Session}"><img border="0" src="../images/up.png" title="{$SortMsg} {$Full_Name} ASC" alt="{$SortMsg} {$Full_Name} ASC" /></a>&nbsp;<a href="{$smarty.server.PHP_SELF}?{$AddCurrentPage}Order=FULLNAME&amp;Sort=DESC&amp;{$Session}"><img border="0" src="../images/down.png" title="{$SortMsg} {$Full_Name} DESC" alt="{$SortMsg} {$Full_Name} DESC" /></a>&nbsp;</td>
+<td nowrap="nowrap" align="left">{$User_Group1}
+<a href="{$smarty.server.PHP_SELF}?{$AddCurrentPage}Order=USERGROUP1&amp;Sort=ASC&amp;{$Session}"><img border="0" src="../images/up.png" title="{$SortMsg} {$User_Group1} ASC" alt="{$SortMsg} {$User_Group1} ASC" /></a>&nbsp;<a href="{$smarty.server.PHP_SELF}?{$AddCurrentPage}Order=USERGROUP1&amp;Sort=DESC&amp;{$Session}"><img border="0" src="../images/down.png" title="{$SortMsg} {$User_Group1} DESC" alt="{$SortMsg} {$User_Group1} DESC" /></a>&nbsp;</td>
+<td nowrap="nowrap" align="left">{$User_Group2}
+<a href="{$smarty.server.PHP_SELF}?{$AddCurrentPage}Order=USERGROUP2&amp;Sort=ASC&amp;{$Session}"><img border="0" src="../images/up.png" title="{$SortMsg} {$User_Group2} ASC" alt="{$SortMsg} {$User_Group2} ASC" /></a>&nbsp;<a href="{$smarty.server.PHP_SELF}?{$AddCurrentPage}Order=USERGROUP2&amp;Sort=DESC&amp;{$Session}"><img border="0" src="../images/down.png" title="{$SortMsg} {$User_Group2} DESC" alt="{$SortMsg} {$User_Group2} DESC" /></a>&nbsp;</td>
+
 <td nowrap="nowrap" align="left">{$Language}
 <a href="{$smarty.server.PHP_SELF}?{$AddCurrentPage}Order=LANGUAGE&amp;Sort=ASC&amp;{$Session}"><img border="0" src="../images/up.png" title="{$SortMsg} {$Language} ASC" alt="{$SortMsg} {$Language} ASC" /></a>&nbsp;<a href="{$smarty.server.PHP_SELF}?{$AddCurrentPage}Order=LANGUAGE&amp;Sort=DESC&amp;{$Session}"><img border="0" src="../images/down.png" title="{$SortMsg} {$Language} DESC" alt="{$SortMsg} {$Language} DESC" /></a>&nbsp;</td>
 <td nowrap="nowrap" align="center" colspan="2">{$Entrys}:&nbsp;{$MaxRows}&nbsp;</td></tr>
@@ -106,7 +111,20 @@ href="help.php?{$Session}">{$Help}</a></td></tr>
 	{$user.FULLNAME}
 {else}
 	&nbsp;i&nbsp;
-{/if}</a></td><td valign="top" align="left">
+{/if}</a></td>
+<td valign="top" align="left">
+{if $user.USERGROUP1}
+	{$user.USERGROUP1}
+{else}
+	&nbsp;i&nbsp;
+{/if}</td>
+<td valign="top" align="left">
+{if $user.USERGROUP2}
+	{$user.USERGROUP2}
+{else}
+	&nbsp;i&nbsp;
+{/if}</td>
+<td valign="top" align="left">
 {foreach item=lang from=$choose_language}
 	{foreach key=key item=item from=$lang}
 		{if $user.LANGUAGE and ( $user.LANGUAGE eq $key)}
@@ -115,7 +133,7 @@ href="help.php?{$Session}">{$Help}</a></td></tr>
 	{/foreach}
 {/foreach}
 </td>
-{if $smarty.session.Username and ( $smarty.session.Username == $user.USERNAME or $smarty.session.Username == $Root or $smarty.session.Usergroup1 == $AdminGroup1 or $smarty.session.Usergroup2 == $AdminGroup2)}
+{if $smarty.session.Username and ( $smarty.session.Username == $user.USERNAME or $Allowed_to_Update)}
 <td valign="top" align="center"><a href="edit.php?userID={$user.USERID}&amp;{$AddCurrentPage}Order={$Order}&amp;Sort={$Sort}&amp;{$Session}"><img border="0" src="../images/edit.png" title="{$Editentry}" alt="{$Editentry}" /></a></td></tr>
 {else}
 <td></td></tr>

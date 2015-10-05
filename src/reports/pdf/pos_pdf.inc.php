@@ -304,7 +304,38 @@ else
 
 			$pdf->Row(array($posresult['POS_NAME'],$posresult['POS_DESC'],$posresult['POS_QUANTITY'],Format_Number($posresult['POS_AMOUNT']).' ('.$Percentage.'%)'));
 		}
-	
+		else if(isset($Type) && $Type == 'Tax_Report')
+		{
+			$pdf->SetTextColor(0,0,0);
+			$pdf->SetFill(1);
+			if ($col==array(255,255,255))
+			    $col = array(240,240,240); 
+			  else
+			    $col = array(255,255,255); 
+			$pdf->SetFillColor( $col[0], $col[1], $col[2]);
+			    
+			if (is_null($posresult['MONTH'])) {
+			    $pdf->SetWidths(array(37,31,31,31,31,34));
+			    $pdf->SetAligns(array('R','R','R','R','R','R'));
+			    $pdf->SetFont($PDFFont,'BI',$PDFFontsize2);
+		    	    if(is_null($posresult['QUARTER'])) {
+				if (is_null($posresult['YEAR'])) {
+				    $pdf->Row(array('Gesamtsumme:',Format_Number($posresult['TAX1_TOTAL']),Format_Number($posresult['SUBTOTAL1']),Format_Number($posresult['TAX2_TOTAL']),Format_Number($posresult['SUBTOTAL2']),Format_Number($posresult['TOTAL_AMOUNT'])));
+	    			    $pdf->line(10,$pdf->GetY(),205,$pdf->GetY());
+				}else{
+				    $pdf->Row(array('Jahreswerte '.$posresult['YEAR'].':',Format_Number($posresult['TAX1_TOTAL']),Format_Number($posresult['SUBTOTAL1']),Format_Number($posresult['TAX2_TOTAL']),Format_Number($posresult['SUBTOTAL2']),Format_Number($posresult['TOTAL_AMOUNT'])));
+	    			    $pdf->line(10,$pdf->GetY(),205,$pdf->GetY());
+				}
+			    }else{
+			    	    $pdf->Row(array($posresult['QUARTER'].'.Quartal '.$posresult['YEAR'].':',Format_Number($posresult['TAX1_TOTAL']),Format_Number($posresult['SUBTOTAL1']),Format_Number($posresult['TAX2_TOTAL']),Format_Number($posresult['SUBTOTAL2']),Format_Number($posresult['TOTAL_AMOUNT'])));
+			    }
+			}else{
+			    $pdf->SetWidths(array(37,31,31,31,31,34));
+			    $pdf->SetAligns(array('L','R','R','R','R','R'));
+			    $pdf->SetFont($PDFFont,'',$PDFFontsize2);
+			    $pdf->Row(array($monate[$posresult['MONTH']].' '.$posresult['YEAR'],Format_Number($posresult['TAX1_TOTAL']),Format_Number($posresult['SUBTOTAL1']),Format_Number($posresult['TAX2_TOTAL']),Format_Number($posresult['SUBTOTAL2']),Format_Number($posresult['TOTAL_AMOUNT'])));
+			}
+		}
 	$pdf->SetFont($PDFFont,'',$PDFFontsize2);
 	$pdf->SetTextColor(0,0,0);
 	}

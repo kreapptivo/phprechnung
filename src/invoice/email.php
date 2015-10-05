@@ -83,7 +83,7 @@ DBConnect();
 
 // Get Invoice Information
 //
-$query = $db->Execute("SELECT A.FIRSTNAME, A.LASTNAME, A.COMPANY, A.MYID, A.SALUTATION, A.EMAIL, I.INVOICEID, I.MYID,
+$query = $db->Execute("SELECT A.PRINT_NAME, A.FIRSTNAME, A.LASTNAME, A.COMPANY, A.PREFIX, A.TITLE, A.MYID, A.SALUTATION, A.EMAIL, I.INVOICEID, I.MYID,
 	DATE_FORMAT(I.INVOICE_DATE,'%d.%m.%Y') AS INVOICE_DATE, I.CREATEDBY FROM {$TBLName}addressbook AS A, {$TBLName}invoice AS I WHERE A.MYID=I.MYID AND I.INVOICEID=$invoiceID");
 
 // If an error has occurred, display the error message
@@ -102,14 +102,23 @@ else
 		$smarty->assign("COMPANY",$f['COMPANY']);
 		$smarty->assign("EMAIL_TO",$f['EMAIL']);
 
-		if(!empty($f['LASTNAME']))
+		if(!empty($f['LASTNAME']) && ($f['PRINT_NAME']==1))
 		{
-			$smarty->assign("SALUTATION",$f['SALUTATION'].' '.$f['FIRSTNAME'].' '.$f['LASTNAME'].",\n\n");
+			if (!empty($f['SALUTATION'])) {
+			    $f['SALUTATION'].= ' ';
+			} else {
+			    if($f['PREFIX']=='Herr') $f['SALUTATION']='Sehr geehrter ';
+			    if($f['PREFIX']=='Frau') $f['SALUTATION']='Sehr geehrte ';
+			}
+			if (!empty($f['PREFIX'])) $f['SALUTATION'].= $f['PREFIX'].' ';
+			if (!empty($f['TITLE'])) $f['SALUTATION'].= $f['TITLE'].' ';
+			if (!empty($f['FIRSTNAME'])) $f['SALUTATION'].=$f['FIRSTNAME'].' ';
+			$f['SALUTATION'].=$f['LASTNAME'];
+		}else{
+			//$smarty->assign("SALUTATION",$f['SALUTATION'].",\n\n");
+			$f['SALUTATION'] = $SalutationGeneral;
 		}
-		else
-		{
-			$smarty->assign("SALUTATION",$f['SALUTATION'].",\n\n");
-		}
+		$smarty->assign("SALUTATION",$f['SALUTATION'].",\n\n");
 	}
 
 $PrintD = Print_Date($InvoiceDate);
@@ -119,22 +128,22 @@ $patterns[0] = '/{NUMBER}/i';
 $patterns[1] = '/{DATE}/i';
 $patterns[2] = '/&/i';
 $patterns[3] = '/{TYPE}/i';
-$replacements[0] = $PrintD.'-'.$InvoiceID;
-$replacements[1] = $InvoiceDate;
-$replacements[2] = '&amp;';
-if ($SendEmail == 1)
-{
+if ($SendEmail == 1){
+	$replacements[0] = $a['invoice_initials'].'-'.$PrintD.'-'.str_pad($InvoiceID, 3 ,'0', STR_PAD_LEFT);
+	$replacements[1] = $InvoiceDate;
+	$replacements[2] = '&amp;';
 	$replacements[3] = $a['invoice'];
-}
-else
-{
+}else{
+	$replacements[0] = $a['delivery_note_initials'].'-'.$PrintD.'-'.str_pad($InvoiceID, 3 ,'0', STR_PAD_LEFT);
+	$replacements[1] = $InvoiceDate;
+	$replacements[2] = '&amp;';
 	$replacements[3] = $a['delivery_note'];
 }
 $PDFAttachmentText = preg_replace($patterns,$replacements,$PDFAttachmentText);
 
 $smarty->assign("COMPANY_PDF_ATTACHMENT_TEXT",$PDFAttachmentText);
 
-if(isset($_SESSION['Username']) && $_SESSION['Username'] != $root && $_SESSION['Usergroup1'] != $admingroup_1 && $_SESSION['Usergroup2'] != $admingroup_2 && $_SESSION['Username'] != $CreatedBy)
+if(!is_Superuser() && !is_Admin() && !is_Manager() && $_SESSION['Username'] != $CreatedBy)
 {
 	$_SESSION['LastSite'] = $_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING'];
 	$_SESSION['logoutid'] = "5";

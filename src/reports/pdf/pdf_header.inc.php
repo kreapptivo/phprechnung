@@ -33,8 +33,12 @@
 		$Currency = $CompanyCurrency;
 	}
 
-	$this->SetFont($PDFFont,'',$PDFFontsize2);
-	$this->Cell(100,5,$CompanyName.' - '.$CompanyAddress.' - '.$CompanyPostal.' '.$CompanyCity,0,1,'L');
+	$this->SetFont($PDFFont,'B',$PDFFontsize2);
+	$tempy=$this->GetY();
+	$this->Cell(100,5,$CompanyName,0,1,'L');
+	$this->SetFont($PDFFont,'I',$PDFFontsize2);
+	$this->SetY($tempy);
+	$this->Cell(195,5,$CompanyAddress.', '.$CompanyPostal.' '.$CompanyCity,0,1,'R');
 	$this->Line(10,17,205,17);
 	$this->Ln();
 	$this->SetFont($PDFFont,'',$PDFFontsize1);
@@ -126,6 +130,18 @@
 		$this->Cell(100,5,$a['pos_text'],0,0,'L');
 		$this->Cell(25,5,$a['pos_quantity'],0,0,'R');
 		$this->Cell(45,5,$a['pos_amount'].' '.$Currency,0,0,'R');
+	}
+	else if (isset($Type) && $Type == 'Tax_Report')
+	{
+		$this->Cell(195,10,$a['tax_report'],0,1,'C');
+		$this->Ln(2);
+		$this->SetFont($PDFFont,'B',$PDFFontsize2);
+		$this->Cell(37,5,'Zeitraum',0,0,'C');
+		$this->Cell(31,5,'USt. 19%'.' '.$Currency,0,0,'R');
+		$this->Cell(31,5,'Netto 19%'.' '.$Currency,0,0,'R');
+		$this->Cell(31,5,'USt. 7%'.' '.$Currency,0,0,'R');
+		$this->Cell(31,5,'Netto 7%'.' '.$Currency,0,0,'R');
+		$this->Cell(34,5,$a['invoice_amount'].' '.$Currency,0,0,'R');
 	}
 	$this->Line(10,44,205,44);
 	$this->Ln(10);

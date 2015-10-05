@@ -11,8 +11,10 @@
 */
 
 require_once('fpdf.php');
+require_once('fpdi/fpdi.php');
 
-class PDF_MC_Table extends FPDF
+
+class PDF_MC_Table extends FPDI
 {
 var $widths;
 var $aligns;
@@ -43,24 +45,18 @@ function SetAligns($a)
 	$this->aligns=$a;
 }
 
-function Row($data)
+function Row($data, $rowh=5,$border=0,$fill=0)
 {
 	//Calculate the height of the row
 	$nb=0;
 	for($i=0;$i<count($data);$i++)
 		$nb=max($nb,$this->NbLines($this->widths[$i],$data[$i]));
-		$h=5*$nb;
-		// Issue a page break first if needed
-		//
-		// Added by Edy Corak 07.05.2006
-		//
-		$this->CheckPageBreak(20);
-		//
-		// End
-		
-		//
+		$h=$rowh*$nb;
+		// Check with fixed height?
+		// $this->CheckPageBreak(20);
 		// Original
-// 		$this->CheckPageBreak($h);
+		// 		
+		$this->CheckPageBreak($h);
 		//Draw the cells of the row
 		//
 
@@ -74,7 +70,7 @@ function Row($data)
 		//Draw the border
 		//$this->Rect($x,$y,$w,$h);
 		//Print the text
-		$this->MultiCell($w,5,$data[$i],0,$a);
+		$this->MultiCell($w,$rowh,$data[$i],$border,$a,$fill);
 		//Put the position to the right of the cell
 		$this->SetXY($x+$w,$y);
 	}
@@ -85,8 +81,7 @@ function Row($data)
 function CheckPageBreak($h)
 {
 	//If the height h would cause an overflow, add a new page immediately
-	if($this->GetY()+$h>$this->PageBreakTrigger)
-		$this->AddPage($this->CurOrientation);
+	if($this->GetY()+$h>$this->PageBreakTrigger) $this->AddPage($this->CurOrientation);
 }
 
 function NbLines($w,$txt)

@@ -92,6 +92,7 @@ href="../configuration.php?{$Session}">{$Configuration}</a></td></tr>
 <tr><td></td></tr>
 <tr><td valign="middle" align="right" width="40%"><b>{$PositionName}</b>:</td><td valign="top" align="left" width="60%"><input title="{$PositionName}" class="form_input" name="Pos_Name" size="39" value="{$Pos_Name}" /></td></tr>
 <tr><td valign="top" align="right" width="40%"><b>{$PositionText}</b>:</td><td valign="top" align="left" width="60%"><textarea title="{$PositionText}" class="form_textarea" name="Pos_Desc" rows="3" cols="37">{$Pos_Desc}</textarea></td></tr>
+<tr><td valign="middle" align="right" width="40%"><b>{$PositionUnit}</b>:</td><td valign="top" align="left" width="60%"><input title="{$PositionUnit}" class="form_input" name="Pos_Unit" size="39" value="{$Pos_Unit}" /></td></tr>
 <tr><td valign="middle" align="right" width="40%"><b>{$PositionPrice} {$Currency}</b>:</td><td valign="top" align="left" width="60%"><input title="{$PositionPrice} {$Currency}" class="form_input" name="Pos_Price" size="39" value="{$Pos_Price}" /></td></tr>
 <tr><td valign="middle" align="right" width="40%"><b>{$Tax}</b>&nbsp;[&nbsp;<a class="nlink" title="{$Tax} - {$Info}" href="../tax/list.php?{$Session}">&nbsp;i&nbsp;</a>&nbsp;]&nbsp;:</td>
 <td valign="top" align="left" width="60%">
@@ -140,7 +141,8 @@ href="../configuration.php?{$Session}">{$Configuration}</a></td></tr>
 {if $infoID eq 9}
 	<input type="hidden" name="Pos_Name1" value="{$Pos_Name1}" />
 	<input type="hidden" name="Pos_Desc1" value="{$Pos_Desc1}" />
-	<input type="hidden" name="Pos_Price1" value="{$Pos_Price1}" />
+	<input type="hidden" name="Pos_Desc1" value="{$Pos_Desc1}" />
+	<input type="hidden" name="Pos_Unit1" value="{$Pos_Unit1}" />
 	<input type="hidden" name="Note1" value="{$Note1}" />
 	<input type="hidden" name="Pos_Active1" value="{$Pos_Active1}" />
 {/if}

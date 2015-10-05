@@ -43,7 +43,10 @@ function SetAligns($a)
 	//Set the array of column alignments
 	$this->aligns=$a;
 }
-
+function SetFill($fill) {
+	//Set the MultiCell-Fills to transparent or fill
+	$this->fill=$fill;
+}
 function Row($data)
 {
 	//Calculate the height of the row
@@ -77,7 +80,7 @@ function Row($data)
 		//Draw the border
 		//$this->Rect($x,$y,$w,$h);
 		//Print the text
-		$this->MultiCell($w,5,$data[$i],0,$a);
+		$this->MultiCell($w,5,$data[$i],0,$a,$this->fill);
 		//Put the position to the right of the cell
 		$this->SetXY($x+$w,$y);
 	}

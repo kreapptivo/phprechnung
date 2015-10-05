@@ -87,7 +87,7 @@ else
 $PrintD = Print_Date($InvoiceDate);
 $smarty->assign("PrintDate",$PrintD.'-'.$InvoiceID);
 
-if(isset($_SESSION['Username']) && $_SESSION['Username'] != $root && $_SESSION['Usergroup1'] != $admingroup_1 && $_SESSION['Usergroup2'] != $admingroup_2 && $_SESSION['Username'] != $CreatedBy)
+if(!is_Superuser() && !is_Admin() && !is_Manager() && $_SESSION['Username'] != $CreatedBy)
 {
 	$_SESSION['LastSite'] = $_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING'];
 	$_SESSION['logoutid'] = "5";

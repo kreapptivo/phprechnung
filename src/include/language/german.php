@@ -46,14 +46,14 @@ $a = array (
 	"offer" => "Angebot",
 	"invoice" => "Rechnung",
 	"credit_note" => "Gutschrift",
-	"payment" => "Zahlung",
+	"payment" => "Zahlungseingang",
 	"cashbook" => "Kassenbuch",
 	"reports" => "Berichte",
 	"configuration" => "Konfiguration",
 	"message" => "Mitteilung",
-	"method_of_payment" => "Zahlungsweise",
+	"method_of_payment" => "Zahlungsbedingungen",
 	"category" => "Kategorie",
-	"tax" => "Mehrwertsteuer",
+	"tax" => "Umsatzsteuer",
 	"tax_short" => "MwSt.",
 	"settings" => "Einstellung",
 	"user_admin" => "Benutzerverwaltung",
@@ -227,10 +227,12 @@ $a = array (
 	"pos_inactive" => "Position inaktiv",
 	"pos_all" => "Alle Positionen anzeigen",
 	"pos_name" => "Position / Artikel",
+	"pos_unit" => "Einheit",
 	"pos_text" => "Beschreibung",
 	"pos_quantity" => "Menge",
 	"pos_price" => "Preis",
 	"pos_amount" => "Betrag",
+	"pos_amount_carried_forward" => "Übertrag",
 	"pos_choose" => "Position wählen",
 	"pos_new" => "Neue Position eintragen",
 	"pos_print" => "Position drucken",
@@ -309,9 +311,9 @@ $a = array (
 	"offer_number" => "Angebot-Nr.",
 	"order_number" => "Auftrag-Nr.",
 	"offer_subtotal" => "Zwischensumme Netto",
-	"offer_tax1" => "MwSt. 1",
-	"offer_tax2" => "MwSt. 2",
-	"offer_tax3" => "MwSt. 3",
+	"offer_tax1" => "MwSt.",
+	"offer_tax2" => "MwSt.",
+	"offer_tax3" => "MwSt.",
 	"offer_amount" => "Gesamt",
 	"email_offer" => "Angebot per E-Mail an:",
 	"email_order" => "Auftrag per E-Mail an:",
@@ -327,13 +329,14 @@ $a = array (
 	"open_account" => "Offener Betrag",
 	"invoice_initials" => "RE",
 	"invoice_number" => "Rechnung-Nr.",
-	"invoice_subtotal" => "Zwischensumme Netto",
-	"invoice_tax1" => "MwSt. 1",
-	"invoice_tax2" => "MwSt. 2",
-	"invoice_tax3" => "MwSt. 3",
-	"invoice_amount" => "Gesamt",
+	"invoice_subtotal" => "Zwischensumme",
+	"invoice_tax1" => "MwSt.",
+	"invoice_tax2" => "MwSt.",
+	"invoice_tax3" => "MwSt.",
+	"invoice_amount" => "Rechnungsbetrag",
 	"transaction" => "Zahlungseingang",
 	"invoice_transaction" => "Zahlungseingang für Rechnung-Nr.",
+	"open_amount" => "Noch zu bezahlen",
 	"open_invoice" => "Offene Rechnungen",
 	"email_invoice" => "Rechnung per E-Mail an:",
 	"invoice_was_send" => "Rechnung wurde per E-Mail gesendet an",
@@ -382,6 +385,7 @@ $a = array (
 	"summary" => "Zusammenfassung",
 	"date_from" => "vom",
 	"date_till" => "bis",
+	"tax_report" => "Umsatzsteuer",
 
 
 	// Kassenbuch
@@ -412,7 +416,8 @@ $reports = array (
 	"cashbook.php" => "Kassenbuch",
 	"position_sales_summary.php" => "Verkäufe nach Position/Artikel - Zusammenfassung",
 	"position_sales.php" => "Verkäufe nach Position/Artikel - Einzelwerte",
-	"outstanding_offers.php" => "Nicht angenommene Angebote"
+	"outstanding_offers.php" => "Nicht angenommene Angebote",
+	"tax_report.php" => "Umsatzsteuer"
 );
 
 
@@ -424,6 +429,12 @@ $customer_reports = array (
 	"../reports/customer_outstanding_accounts.php" => "Offene Rechnungen"
 );
 
+// Umsatzsteuer-Bericht
+$a["year"] 	 = "Jahr";
+$a["month"] 	 = "Monat";
+$a["quarter"] 	 = "Quartal";
+$a["paid_tax"] 	 = "Vorsteuer";
+$a["to_pay_tax"] = "Umsatzsteuer";
 
 // Sprache
 //
@@ -442,7 +453,7 @@ $language = array (
 // Gruppe
 //
 $group = array (
-	1 => "Root",
+	1 => "Administrator",
 	2 => "Manager",
 	3 => "Buchhaltung",
 	4 => "Angestellter",
@@ -477,7 +488,7 @@ $sales_price = array (
 $email_priority = array (
 	3 => "Normal",
 	1 => "Hoch",
-	5 => "Niederig"
+	5 => "Niedrig"
 );
 
 
@@ -488,5 +499,19 @@ $offer_status = array(
 	2 => "Auftragsbestätigung",
 	3 => "Rechnung"
 );
+
+//Monate
+$monate = array(1=>"Januar",
+                2=>"Februar",
+		3=>"M&auml;rz",
+                4=>"April",
+                5=>"Mai",
+                6=>"Juni",
+                7=>"Juli",
+                8=>"August",
+                9=>"September",
+                10=>"Oktober",
+                11=>"November",
+                12=>"Dezember");
 
 ?>

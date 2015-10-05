@@ -34,206 +34,164 @@ if (!$posquery)
 else
 	// Save all entrys in $PosData array
 	//
-	foreach($posquery as $posresult)
-	{
+	foreach($posquery as $posresult){
 		$PosData[] = $posresult;
 
-		if ( $posresult['TAX'] == '1' )
-		{
-			if($SalesPrices == '1')
-			{
+		if ( $posresult['TAX'] == '1' ){
+			if($SalesPrices == '1'){
 				$Subtotal1 += $posresult['POS_QUANTITY'] * $posresult['POS_PRICE'];
-				if($posresult['TAX_MULTI'] > 0)
-				{
+				if($posresult['TAX_MULTI'] > 0){
 					$Tax1 = $Subtotal1 * $posresult['TAX_MULTI'];
 				}
 				$Total1 = $Subtotal1 + $Tax1;
-			}
-			else
-			{
+			}else{
 				$Total1 += $posresult['POS_QUANTITY'] * $posresult['POS_PRICE'];
-				if($posresult['TAX_DIVIDE'] > 0)
-				{
+				if($posresult['TAX_DIVIDE'] > 0){
 					$Subtotal1 = $Total1 / $posresult['TAX_DIVIDE'];
 					$Tax1 = $Total1 / $posresult['TAX_DIVIDE'] * $posresult['TAX_MULTI'];
-				}
-				else
-				{
+				}else{
 					$Subtotal1 = $Total1;
 				}
 			}
 			$Tax1_Desc = $posresult['TAX_DESC'];
 		}
-
-		if ( $posresult['TAX'] == '2' )
-		{
-			if($SalesPrices == '1')
-			{
+		
+		if ( $posresult['TAX'] == '2' ){
+			if($SalesPrices == '1'){
 				$Subtotal2 += $posresult['POS_QUANTITY'] * $posresult['POS_PRICE'];
 				if($posresult['TAX_MULTI'] > 0)
 				{
 					$Tax2 = $Subtotal2 * $posresult['TAX_MULTI'];
 				}
 				$Total2 = $Subtotal2 + $Tax2;
-			}
-			else
-			{
+			}else{
 				$Total2 += $posresult['POS_QUANTITY'] * $posresult['POS_PRICE'];
 				if($posresult['TAX_DIVIDE'] > 0)
 				{
 					$Subtotal2 = $Total2 / $posresult['TAX_DIVIDE'];
 					$Tax2 = $Total2 / $posresult['TAX_DIVIDE'] * $posresult['TAX_MULTI'];
-				}
-				else
-				{
+				}else{
 					$Subtotal2 = $Total2;
 				}
 			}
 			$Tax2_Desc = $posresult['TAX_DESC'];
 		}
 
-		if ( $posresult['TAX'] == '3' )
-		{
-			if($SalesPrices == '1')
-			{
+		if ( $posresult['TAX'] == '3' ){
+			if($SalesPrices == '1'){
 				$Subtotal3 += $posresult['POS_QUANTITY'] * $posresult['POS_PRICE'];
-				if($posresult['TAX_MULTI'] > 0)
-				{
+				if($posresult['TAX_MULTI'] > 0){
 					$Tax3 = $Subtotal3 * $posresult['TAX_MULTI'];
 				}
 				$Total3 = $Subtotal3 + $Tax3;
-			}
-			else
-			{
+			}else{
 				$Total3 += $posresult['POS_QUANTITY'] * $posresult['POS_PRICE'];
-				if($posresult['TAX_DIVIDE'] > 0)
-				{
+				if($posresult['TAX_DIVIDE'] > 0){
 					$Subtotal3 = $Total3 / $posresult['TAX_DIVIDE'];
 					$Tax3 = $Total3 / $posresult['TAX_DIVIDE'] * $posresult['TAX_MULTI'];
-				}
-				else
-				{
+				}else{
 					$Subtotal3 = $Total3;
 				}
 			}
 			$Tax3_Desc = $posresult['TAX_DESC'];
 		}
 
-		if ( $posresult['TAX'] == '4' )
-		{
-			if($SalesPrices == '1')
-			{
+		if ( $posresult['TAX'] == '4' ){
+			if($SalesPrices == '1'){
 				$Subtotal4 += $posresult['POS_QUANTITY'] * $posresult['POS_PRICE'];
-				if($posresult['TAX_MULTI'] > 0)
-				{
+				if($posresult['TAX_MULTI'] > 0){
 					$Tax4 = $Subtotal4 * $posresult['TAX_MULTI'];
 				}
 				$Total4 = $Subtotal4 + $Tax4;
-			}
-			else
-			{
+			}else{
 				$Total4 += $posresult['POS_QUANTITY'] * $posresult['POS_PRICE'];
-				if($posresult['TAX_DIVIDE'] > 0)
-				{
+				if($posresult['TAX_DIVIDE'] > 0){
 					$Subtotal4 = $Total4 / $posresult['TAX_DIVIDE'];
 					$Tax4 = $Total4 / $posresult['TAX_DIVIDE'] * $posresult['TAX_MULTI'];
-				}
-				else
-				{
+				}else{
 					$Subtotal4 = $Total4;
 				}
 			}
 			$Tax4_Desc = $posresult['TAX_DESC'];
 		}
 
-		if($posresult['POS_QUANTITY'] != 0)
-		{
-			$Pos_Quantity = $posresult['POS_QUANTITY'];
+		//TAX FREE
+		if ( $posresult['TAX'] == '0' ){
+			$Total_FREE += $posresult['POS_QUANTITY'] * $posresult['POS_PRICE'];
 		}
-		else
-		{
+
+
+		if($posresult['POS_QUANTITY'] != 0){
+			$Pos_Quantity = Format_Number($posresult['POS_QUANTITY']);
+		}else{
 			$Pos_Quantity = "";
 		}
 
-		if($posresult['POS_PRICE'] != 0)
-		{
-			$Pos_Price = Format_Number($posresult['POS_PRICE']);
-		}
-		else
-		{
+		if($posresult['POS_PRICE'] != 0){
+			$Pos_Price = Format_Number($posresult['POS_PRICE']).' '.$Currency;
+		}else{
 			$Pos_Price = "";
 		}
 
-		if($posresult['POS_PRICE'] != 0)
-		{
+		if($posresult['POS_PRICE'] != 0){
 			$Pos_Tax = $posresult['TAX_DESC'];
-		}
-		else
-		{
+		}else{
 			$Pos_Tax = "";
 		}
 
 		$Pos_Sum = $posresult['POS_PRICE']*$posresult['POS_QUANTITY'];
 
-		if($Pos_Sum != 0)
-		{
-			$Pos_Sum = Format_Number($Pos_Sum);
-		}
-		else
-		{
+		if($Pos_Sum != 0){
+			$Pos_Sum = Format_Number($Pos_Sum).' '.$Currency;
+		}else{
 			$Pos_Sum = "";
 		}
-
-		if ($Type == 'DeliveryNote')
-		{
-			if($PrintPositionName == "1")
-			{
-				$pdf->SetWidths(array(25,140,30));
-				$pdf->SetAligns(array('L','L','R'));
-				$pdf->Row(array($posresult['POS_NAME'],$posresult['POS_DESC'],$Pos_Quantity));
-			}
-			else
-			{
-				$pdf->SetWidths(array(165,30));
-				$pdf->SetAligns(array('L','R'));
-				$pdf->Row(array($posresult['POS_DESC'],$Pos_Quantity));
-			}
+		$pos++;
+		
+		if ($pos>1) {
+			//Trennlinie zwischen den Produkten
+			$pdf->SetLineWidth(0.1);
+			$pdf->Line($PDFLeftMargin,$pdf->GetY(),210-$PDFRightMargin,$pdf->GetY());
 		}
-		else
-		{
-			if($PrintPositionName == "1")
-			{
-				if($TaxFree == "1")
-				{
-					$pdf->SetWidths(array(25,95,20,20,35));
-					$pdf->SetAligns(array('L','L','R','R','R'));
-					$pdf->Row(array($posresult['POS_NAME'],$posresult['POS_DESC'],$Pos_Quantity,$Pos_Price,$Pos_Sum));
-				}
-				else
-				{
-					$pdf->SetWidths(array(25,95,20,20,15,20));
-					$pdf->SetAligns(array('L','L','R','R','R','R'));
-					$pdf->Row(array($posresult['POS_NAME'],$posresult['POS_DESC'],$Pos_Quantity,$Pos_Price,$Pos_Tax,$Pos_Sum));
-				}
+		if ($Type == 'DeliveryNote'){
+			if($PrintPositionName == "1"){
+				$pdf->SetWidths(array(10,20,210-$PDFLeftMargin-$PDFRightMargin-10-20));
+				$pdf->SetAligns(array('C','C','L'));
+				$pdf->Row(array($pos,$Pos_Quantity.' '.$posresult['POS_UNIT'],$posresult['POS_NAME']."\n".$posresult['POS_DESC']));
+			}else{
+				$pdf->SetWidths(array(20,210-$PDFLeftMargin-$PDFRightMargin-20));
+				$pdf->SetAligns(array('C','L'));
+				$pdf->Row(array($Pos_Quantity.' '.$posresult['POS_UNIT'],$posresult['POS_DESC']));
 			}
-			else
-			{
-				if($TaxFree == "1")
-				{
-					$pdf->SetWidths(array(120,20,20,35));
-					$pdf->SetAligns(array('L','R','R','R'));
-					$pdf->Row(array($posresult['POS_DESC'],$Pos_Quantity,$Pos_Price,$Pos_Sum));
+		}else{
+			if($PrintPositionName == "1"){
+				//if($TaxFree == "1"){
+					$pdf->SetWidths(array(10,20,210-$PDFLeftMargin-$PDFRightMargin-10-20-21-30,21,30));
+					$pdf->SetAligns(array('C','C','L','R','R'));
+					$pdf->Row(array($pos,$Pos_Quantity.' '.$posresult['POS_UNIT'],$posresult['POS_NAME']."\n".$posresult['POS_DESC'],$Pos_Price,$Pos_Sum),4);
+				/***
+				}else{
+					$pdf->SetWidths(array(25,91,20,20,15,20));
+					$pdf->SetAligns(array('L','L','R','R','R','R'));
+					$pdf->Row(array($posresult['POS_NAME'],$posresult['POS_DESC'],$Pos_Quantity.' '.$posresult['POS_UNIT'],$Pos_Price,$Pos_Tax,$Pos_Sum));
 				}
-				else
-				{
+				***/
+			}else{
+				//if($TaxFree == "1"){
+					$pdf->SetWidths(array(20,210-$PDFLeftMargin-$PDFRightMargin-20-21-30,21,30));
+					$pdf->SetAligns(array('C','L','R','R'));
+					$pdf->Row(array($Pos_Quantity.' '.$posresult['POS_UNIT'],$posresult['POS_DESC'],$Pos_Price,$Pos_Sum),4);
+				/***
+				}else{
 					$pdf->SetWidths(array(120,20,20,15,20));
 					$pdf->SetAligns(array('L','R','R','R','R'));
-					$pdf->Row(array($posresult['POS_DESC'],$Pos_Quantity,$Pos_Price,$Pos_Tax,$Pos_Sum));
+					$pdf->Row(array($Pos_Quantity,$posresult['POS_DESC'],$Pos_Price,$Pos_Tax,$Pos_Sum));
 				}
+				***/
 			}
 		}
+		$Subtotal_netto=$Subtotal1+$Subtotal2+$Subtotal3+$Subtotal4+$Total_FREE; //Zwischensumme Netto
+		$Subtotal=$Total1+$Total2+$Total3+$Total4+$Total_FREE; //Zwischensumme Brutto
 	}
-
-	$TOTAL_AMOUNT = $Total1+$Total2+$Total3+$Total4;
-
+	$TOTAL_AMOUNT = $Subtotal;
 ?>

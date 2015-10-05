@@ -49,6 +49,7 @@ if(isset($infoID) && $infoID == '9')
 
 $smarty->assign("Title","$a[position] - $a[info]");
 $smarty->assign("PositionName","$a[pos_name]");
+$smarty->assign("PositionUnit","$a[pos_unit]");
 $smarty->assign("PositionText","$a[pos_text]");
 $smarty->assign("PositionPrice","$a[pos_price]");
 $smarty->assign("PositionActive","$a[pos_active]");
@@ -66,7 +67,7 @@ $smarty->assign("Currency",$CompanyCurrency);
 
 // Get entrys from position table
 //
-$query = $db->Execute("SELECT P.POSITIONID, P.POS_ACTIVE, P.POS_NAME, P.POS_DESC, P.POS_PRICE, P.POS_TAX, P.POS_GROUP, P.NOTE, T.TAXID, T.TAX_DESC FROM {$TBLName}article AS P, {$TBLName}tax AS T WHERE P.POS_TAX=T.TAXID AND POSITIONID=$posID");
+$query = $db->Execute("SELECT P.POSITIONID, P.POS_ACTIVE, P.POS_NAME, P.POS_UNIT, P.POS_DESC, P.POS_PRICE, P.POS_TAX, P.POS_GROUP, P.NOTE, T.TAXID, T.TAX_DESC FROM {$TBLName}article AS P, {$TBLName}tax AS T WHERE P.POS_TAX=T.TAXID AND POSITIONID=$posID");
 
 // If an error has occurred, display the error message
 //
@@ -79,6 +80,7 @@ else
 		$smarty->assign("PosActive","$choice_yes_no[$pa]");
 		$smarty->assign("Pos_Name",$f['POS_NAME']);
 		$smarty->assign("Pos_Desc",$f['POS_DESC']);
+		$smarty->assign("Pos_Unit",$f['POS_UNIT']);
 		$smarty->assign("Pos_Price",$f['POS_PRICE']);
 		$smarty->assign("Pos_Group",$f['POS_GROUP']);
 		$smarty->assign("Pos_Tax",$f['TAX_DESC']);

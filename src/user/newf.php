@@ -78,20 +78,21 @@ else
 	// Database connection
 	//
 	DBConnect();
-	$query1 = $db->Execute("SELECT DECODE(USERNAME,'$pkey') FROM {$TBLName}user WHERE DECODE(USERNAME,'$pkey')='$UserName'");
+	$query1 = $db->Execute("SELECT USERNAME FROM {$TBLName}user WHERE USERNAME='$UserName' LIMIT 1");
 	$numrows1 = $query1->RowCount();
 
-	if ($numrows1)
-	{
+	if ($numrows1 > 0)
+	{	
+		//Username exists already
 		$smarty->assign("FieldError","$a[entry_exist]");
 		UserInput("UserName");
 		$smarty->display('user/newf.tpl');
-	}
-	else
-	{
+	}else{
+		//Create User
+		$pw_hash = hash('sha256',$pkey.$UserName.$Password1);
 
 		$query2 = "INSERT INTO {$TBLName}user (USERID, FULLNAME, USERNAME, PASSWORD, USERGROUP1, USERGROUP2, LANGUAGE, USER_ACTIVE, LICENSE_ACCEPTED, CREATEDBY, MODIFIEDBY, CREATED, MODIFIED)";
-		$query2 .= "VALUES(NULL, ENCODE('$FullName','$pkey'), ENCODE('$UserName','$pkey'), ENCODE('$Password1','$pkey'), ENCODE('$UserGroup1','$pkey'), ENCODE('$UserGroup2','$pkey'), '$UserLanguage', $UserActive, '2','$_SESSION[Username]','$_SESSION[Username]','$CurrentDateTime','$CurrentDateTime')";
+		$query2 .= "VALUES(NULL, '$FullName','$UserName', '$pw_hash', '$UserGroup1','$UserGroup2','$UserLanguage', $UserActive, '1','$_SESSION[Username]','$_SESSION[Username]','$CurrentDateTime','$CurrentDateTime')";
 
 		if ($db->Execute($query2) === false)
 		{

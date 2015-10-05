@@ -74,7 +74,7 @@ $intCursor = ($page - 1) * $EntrysPerPage;
 
 // Get User Information
 //
-$query = $db->Execute("SELECT USERID, DECODE(FULLNAME,'$pkey') AS FULLNAME, DECODE(USERNAME,'$pkey') AS USERNAME, LANGUAGE FROM {$TBLName}user WHERE DECODE(FULLNAME,'$pkey') LIKE '%$FullName_1%' AND DECODE(USERNAME,'$pkey') LIKE '%$UserName_1%' $UserGroup_1 $UserLanguage_1 ORDER BY $Order $Sort LIMIT $intCursor, $EntrysPerPage");
+$query = $db->Execute("SELECT USERID, FULLNAME, USERNAME, LANGUAGE FROM {$TBLName}user WHERE FULLNAME LIKE '%$FullName_1%' AND USERNAME LIKE '%$UserName_1%' $UserGroup_1 $UserLanguage_1 ORDER BY $Order $Sort LIMIT $intCursor, $EntrysPerPage");
 
 // If an error has occurred, display the error message
 //
@@ -87,7 +87,7 @@ else
 
 	// Count MaxRows
 	//
-	$query1 = $db->Execute("SELECT USERID, DECODE(FULLNAME,'$pkey') AS FULLNAME, DECODE(USERNAME,'$pkey') AS USERNAME, LANGUAGE FROM {$TBLName}user WHERE DECODE(FULLNAME,'$pkey') LIKE '%$FullName_1%' AND DECODE(USERNAME,'$pkey') LIKE '%$UserName_1%' $UserGroup_1 $UserLanguage_1");
+	$query1 = $db->Execute("SELECT USERID, FULLNAME, USERNAME, LANGUAGE FROM {$TBLName}user WHERE FULLNAME LIKE '%$FullName_1%' AND USERNAME LIKE '%$UserName_1%' $UserGroup_1 $UserLanguage_1");
 
 	$numrows = $query1->RecordCount();
 

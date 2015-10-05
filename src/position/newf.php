@@ -25,7 +25,7 @@ require_once("../include/phprechnung.inc.php");
 require_once("../include/smarty.inc.php");
 
 CheckUser();
-CheckAdminGroup1();
+CheckAdminGroup2();
 CheckSession();
 
 $ArrayValue = CheckArrayValue($_REQUEST);
@@ -97,8 +97,8 @@ else
 	}
 	else
 	{
-		$query2 = "INSERT INTO {$TBLName}article (POSITIONID, POS_ACTIVE, POS_NAME, POS_DESC, POS_PRICE, POS_TAX, POSGROUPID, POS_GROUP, NOTE, CREATEDBY, MODIFIEDBY, USERGROUP1, USERGROUP2, CREATED, MODIFIED)";
-		$query2 .= "VALUES(NULL, '$Pos_Active', '$Pos_Name', '$Pos_Desc', '$Pos_Price', '$Pos_Tax', '$PosGroupID', '$Pos_Group', '$Note', '$_SESSION[Username]', '$_SESSION[Username]', '$_SESSION[Usergroup1]', '$_SESSION[Usergroup2]', '$CurrentDateTime', '$CurrentDateTime')";
+		$query2 = "INSERT INTO {$TBLName}article (POSITIONID, POS_ACTIVE, POS_NAME, POS_UNIT, POS_DESC, POS_PRICE, POS_TAX, POSGROUPID, POS_GROUP, NOTE, CREATEDBY, MODIFIEDBY, USERGROUP1, USERGROUP2, CREATED, MODIFIED)";
+		$query2 .= "VALUES(NULL, '$Pos_Active', '$Pos_Name', '$Pos_Unit','$Pos_Desc', '$Pos_Price', '$Pos_Tax', '$PosGroupID', '$Pos_Group', '$Note', '$_SESSION[Username]', '$_SESSION[Username]', '$_SESSION[Usergroup1]', '$_SESSION[Usergroup2]', '$CurrentDateTime', '$CurrentDateTime')";
 
 		if ($db->Execute($query2) === false)
 		{

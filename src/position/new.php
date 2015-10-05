@@ -25,7 +25,7 @@ require_once("../include/phprechnung.inc.php");
 require_once("../include/smarty.inc.php");
 
 CheckUser();
-CheckAdminGroup1();
+CheckAdminGroup2();
 CheckSession();
 
 $ArrayValue = CheckArrayValue($_REQUEST);
@@ -38,6 +38,7 @@ foreach($ArrayValue as $key => $val)
 
 $smarty->assign("Title","$a[position] - $a[new]");
 $smarty->assign("PositionName","$a[pos_name]");
+$smarty->assign("PositionUnit","$a[pos_unit]");
 $smarty->assign("PositionText","$a[pos_text]");
 $smarty->assign("PositionPrice","$a[pos_price]");
 $smarty->assign("PositionActive","$a[pos_active]");
@@ -57,7 +58,7 @@ $smarty->assign("pos_active_values",array($choice_yes_no));
 
 // Select the tax
 //
-$query1 = $db->Execute("SELECT TAXID, TAX_DESC from {$TBLName}tax ORDER BY TAX_DESC");
+$query1 = $db->Execute("SELECT TAXID, TAX_DESC from {$TBLName}tax ORDER BY `DEFAULT` DESC, TAX_DESC");
 
 // If an error has occurred, display the error message
 //
