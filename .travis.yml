@@ -16,10 +16,10 @@ php:
   
 env:
   - DB=mysql
-  #- DB=mariadb
+#  - DB=mariadb
   
 addons:
-  mariadb: '10.0'
+#  mariadb: '10.0'
   
 matrix:
   fast_finish: true
@@ -54,3 +54,10 @@ before_script:
 # omitting "script:" will default to phpunit
 # use the $DB env variable to determine the phpunit.xml to use
 #script: phpunit --configuration phpunit_$DB.xml --coverage-text
+
+notifications:
+  email: false
+  recipients:
+      - post@kreapptivo.de
+    on_success: change # default: change [alway|never|change]
+    on_failure: always # default: always [alway|never|change]
