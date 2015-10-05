@@ -1,0 +1,226 @@
+/*
+	README - 31.01.2011
+
+	phpRechnung - is easy-to-use Web-based multilingual accounting software.
+	Copyright (C) 2001 - 2011 Edy Corak < edy at loenshotel dot de >
+
+	This program is free software; you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation; either version 2 of the License, or
+	(at your option) any later version.
+
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+*/
+
+
+	Um phpRechnung 1.6.4 zu installieren wird folgendes benoetigt:
+
+	------
+	Server
+	------
+
+	Webserver:
+	Apache, Lighttpd oder auch ( Microsoft IIS - nicht getestet )
+
+	PHP:
+	PHP Version 5 - ( mbstring, PEAR::Mail, Mail_Mime )
+
+	MySQL: ( ab phpRechnung 1.8 auch andere Datenbaksysteme )
+	MySQL Version 5 oder 4
+
+	MailServer:
+	Postfix, Exim, Sendmail...
+
+	Die oben genannten Programme muessen bereits
+	installiert und konfiguriert sein.
+
+	------
+	Klient
+	------
+
+	Browser:
+	z. B. Firefox, Konqueror, Safari, Opera, Google Chrome ...
+	( Javascript muss eingeschaltet sein )
+
+	PDF-Betrachter
+
+	------
+
+	Wichtig:
+	Unter Einstellung muss eine korrekte E-Mail Adresse eingetragen
+	werden, da ansonsten der E-Mail Verasand nicht funktioniert.
+	Das selbe gilt auch, wenn ein Relay-Server benutzt wird,
+	da ansonsten die E-Mail's vom Relay-Server abgewiesen werden.
+
+	Wenn Sie keinen eigenen E-Mail Server haben, dann stellen Sie
+	bitte in der Datei /include/phprechnung.inc.php die Variable
+	$PHPSendMail = ""; auf $PHPSendMail = "1"; ein.
+
+	In der Datei /include/mail.inc.php muessen noch
+	Aenderungen vorgenommen werden Host, Port und falls
+	Anmeldung notwendig ist, $Smtp["auth"] auf true zu stellen
+	und $Smtp["username"] und $Smtp["password"] eintragen.
+
+	$Smtp["host"] = "ihrmailserver";
+	$Smtp["port"] = "25";
+	$Smtp["auth"] = false;
+	$Smtp["username"] = "";
+	$Smtp["password"] = "";
+
+	#####
+
+	Wichtiger Hinweis:
+
+	Bitte haben Sie Verstaendnis, dass fuer die oben genannten
+	Programme keine Anfragen mehr beantwortet werden koennen.
+
+	Fragen zu ( open_basedir, safe_mode etc. ) haben nichts mit
+	phpRechnung zu tun und werden auch nicht mehr beantwortet
+	
+	#####
+
+	phpRechnung_1_6_4.tar.gz entpacken - tar -zxvf phpRechnung_1_6_4.tar.gz
+	Das Verzeichnis 'phpRechnung_1_6_4' auf den Webserver kopieren
+	z. B. /var/www Sie koennen das Verzeichnis auch umbenennen.
+
+	####################
+
+	!!! WICHTIGER HINWEIS !!!
+
+	Seit phpRechnung 1.6 RC1 wird Smarty Template Engine verwendet.
+	Damit das ganze funktioniert, muessen noch einige Aenderungen
+	vorgenommen werden.
+	
+	Der Webserver muss fuer die Verzeichnise '/include/smarty/cache'
+	und '/include/smarty/templates_c' Schreibrechte bekommen.
+
+	!!! Es wird empfohlen ein Verzeichnis ausserhalb des DocumentRoot zu verwenden !!!
+
+	Das gilt auch fuer die Verzeichnise '/include/smarty/templates' und '/include/smarty/configs'
+
+	Nach den Aenderungen muessen Sie dies auch phpRechnung mitteilen.
+
+	In '/include/smarty.inc.php' folgende Variablen anpassen:
+	$Templateroot und $Cacheroot von $_SERVER['DOCUMENT_ROOT']."phpRechnung";
+	
+	aendern in z. B.
+
+	$smarty->template_dir = "/var/www/include/smarty/templates";
+	$smarty->config_dir = "/var/www/include/smarty/configs";
+	$smarty->compile_dir = "/var/www/include/smarty/templates_c";
+	$smarty->cache_dir = "/var/www/include/smarty/cache";
+
+	Achten Sie bitte auf eine korrekte Schreibweise.
+
+	Mehr Informationen finden Sie unter Link: http://www.smarty.net/
+
+	FAQ Link: http://www.loenshotel.de/phpRechnung/FAQ.php#faq1.4
+
+	####################
+
+	Datenbank erstellen:
+
+	####################
+
+	Wichtiger Hinweis:
+
+	Diese Anleitung ist nur fuer eine Neu-Installation gedacht.
+
+	Wenn Sie ein UPDATE von phpRechnung 1.6 Test3.01 durchfuehren
+	moechten, dann lesen Sie bitte in der Datei UPDATE weiter.
+
+	Vor einem UPDATE bitte alle Daten sichern.
+
+	####################
+
+	mysqladmin -u 'benutzername' -p create phprechnung
+
+	Tabellen erstellen:
+	mysql -u 'benutzername' -p phprechnung < phprechnung_1_6_4.sql
+
+	Falls kein 'root' Zugriff vorhanden, dann am besten 'phpMyAdmin' benutzen.
+
+	Zuerst Datenbank erstellen, waehlen Sie dann die Datenbank aus, dann Importieren,
+	Datei dursuchen, passende SQL Datei auswaehlen: phprechnung_1_6_4.sql,
+	Zeichencodierung der Datei 'latin1' waehlen und auf OK klicken.
+
+	Sie sollten dann z. B. folgende Meldung sehen:
+
+	Der Import wurde erfolgreich abgeschlossen, 127 Abfragen wurden ausgefuehrt.
+
+	!!! WICHTIG !!!
+
+	Bitte fuegen Sie NICHT die SQL-Datei in das Feld SQL-Befehl(e) in Datenbank ein.
+	Die Daten werden ohne Fehler eingefuegt aber eine Anmeldung ist danach NICHT mehr moeglich.
+
+	Folgende Dateien muessen geaendert werden
+	damit man auf die neu erstellte Datenbank 'phprechnung' zugreifen kann.
+
+	Im Verzeichnis 'include'
+
+	'dbconf.php' fuer die Datenbankverbindung
+	_DBHOST z. B. "localhost"
+	_BBUSER z. B. "benutzername"
+	_DBPASS z. B. "benutzerpasswort"
+	_DBNAME z. B. "phprechnung"
+
+	Der _DBUSER muss ueber ausreichende Rechte auf dem
+	Datenbankserver verfuegen - Erstellen, Aendern, Loeschen etc.
+
+	'phprechnung.inc.php'
+	( wichtig ist die Variable "$web" dort bitte eigene Webadresse zu
+	phpRechnung eintragen ) z. B. http://ihrserver/phpRechnung
+	( ohne '/' am Ende ) da sonst die Weiterleitung nicht funktioniert.
+
+	Fuer die Benutzer die phpRechnung auf einem Windows Server betreiben,
+	bitte unter Konfiguration/Einstellung den Wert von TMP-Verzeichnis
+	anpassen. Standard ist '/tmp/' in z. B. 'c:\windows\temp\'
+
+	Bitte beachten Sie den letzten Backslash. Wichtig.
+	Der Webserver muss Schreibrechte fuer das Verzeichnis haben.
+	
+	Auf einem Windows Server bitte auch 'session.save_path' ueberpruefen.
+
+	Standard ist session.save_path = /tmp
+	Wenn das der Fall ist, dann bitte aendern
+	in z. B. session.save_path = c:\windows\temp
+
+	Anmeldung:
+
+	Administrator: admin, admin
+
+	Die Benutzerdaten sind in der Tabelle
+	'user' verschluesselt gespeichert
+
+	Nach der Ersten Anmeldung werden Sie aufgefordert die
+	phpRechnung Lizenz ( GPL v2 ) zu akzeptieren.
+	Dieses Vorgehen ist fuer jeden Benutzer einmalig notwendig.
+
+	Das Administrator-Passwort kann geaendert werden
+	nur der Anmeldename 'admin' darf nicht veraendert
+	werden. Ansonsten werden viele Seite nicht anzeigen.
+
+	Wenn Sie Fragen oder Anregungen zu phpRechnung haben, dann gehen
+	Sie bitte zu Link: http://sourceforge.net/projects/phprechnung/ und
+	benutzen das Forum.
+
+	Bitte haben Sie Verstaendnis, dass ich direkte Anfragen zu phpRechnung
+	aus Zeitgruenden leider nicht mehr beantworten kann.
+
+	phpRechnung Homepage - http://www.loenshotel.de/phpRechnung/
+
+	Wenn Sie ueber neue Versionen informiert werden moechten, dann
+	gehen Sie bitte zu http://freshmeat.net/projects/phprechnung/ und
+	lassen sich registieren ( subscribe to new releases )
+	oder http://lists.sourceforge.net/lists/listinfo/phprechnung-news
+
+	Vielen Dank fuer die Nutzung von phpRechnung
+
+	Edy Corak < edy at loenshotel dot de >
