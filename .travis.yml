@@ -6,6 +6,7 @@ branches:
     - stable
 
 language: php
+cache: bundler
 
 php:
   #- 5.3
