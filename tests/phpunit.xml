@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit colors="true" bootstrap="bootstrap.php">
   <testsuite name="phpUnit-Tests">
-    <directory>phpunit/</directory>
+    <directory>./phpunit</directory>
   </testsuite>
   <filter>
     <whitelist addUncoveredFilesFromWhitelist="true">
