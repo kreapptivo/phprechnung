@@ -43,8 +43,8 @@ install:
   # see: https://github.com/drush-ops/drush#install---composer
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
 
-  # install drush globally
-  #- composer global require drush/drush:6.*
+  # Update composer
+  - composer self-update
 
 before_script:
   # create new database, stubbing sendmail path with true to prevent delivery errors
