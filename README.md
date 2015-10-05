@@ -1,4 +1,4 @@
-# phprechnung
+# phpRechnung
 
 phpRechnung ist ein einfach-zu-benutzendes Rechnungsprogramm.
 
