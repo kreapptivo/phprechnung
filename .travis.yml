@@ -15,10 +15,11 @@ php:
   #- 7.0
   
 env:
-	#- DB=mariadb
-	- DB=mysql
+  - DB=mysql
+  #- DB=mariadb
+  
 addons:
-	mariadb: '10.0'
+  mariadb: '10.0'
   
 matrix:
   fast_finish: true
